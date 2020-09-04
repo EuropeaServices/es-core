@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="es_core.es_core" class="ES\EsCoreBundle\EsCore"  public="true" >
+            <argument type="service" id="es_core.word_provider" />
+        </service>
+        <service id="ES\EsCoreBundle\EsCore" alias="es_core.es_core" public="true" />
+        <service id="es_core.es_core_word_provider" class="ES\EsCoreBundle\EsCoreWordProvider" />
+        <service id="es_core.word_provider" alias="es_core.es_core_word_provider" public="false" />
+    </services>
+</container>
