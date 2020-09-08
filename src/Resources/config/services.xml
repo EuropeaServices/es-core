@@ -4,11 +4,18 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="es_core.es_core" class="ES\EsCoreBundle\EsCore"  public="true" >
-            <argument type="service" id="es_core.word_provider" />
+        <service id="es_core.es_core" class="ES\CoreBundle\EsCore"  public="true" >
+            <argument type="tagged" tag="es_core_word_provider" />
         </service>
-        <service id="ES\EsCoreBundle\EsCore" alias="es_core.es_core" public="true" />
-        <service id="es_core.es_core_word_provider" class="ES\EsCoreBundle\EsCoreWordProvider" />
+        <service id="ES\CoreBundle\EsCore" alias="es_core.es_core" public="true" />
+
+        <service id="es_core.es_core_word_provider" class="ES\CoreBundle\EsCoreWordProvider">
+            <tag name="es_core_word_provider" />
+        </service>
         <service id="es_core.word_provider" alias="es_core.es_core_word_provider" public="false" />
+
+       <service id="es_core.controller.security_controller" class="ES\CoreBundle\Controller\SecurityController" public="true">
+            <tag name="controller.service_arguments"/>
+        </service>
     </services>
 </container>

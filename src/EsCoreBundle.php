@@ -1,9 +1,11 @@
 <?php
 
-namespace ES\EsCoreBundle;
+namespace ES\CoreBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use ES\EsCoreBundle\DependencyInjection\EsCoreExtension;
+use ES\CoreBundle\DependencyInjection\EsCoreExtension;
+use ES\CoreBundle\DependencyInjection\Compiler\WordProviderCompilerPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class EsCoreBundle extends Bundle
 {
@@ -17,5 +19,12 @@ class EsCoreBundle extends Bundle
             $this->extension = new EsCoreExtension();
         }
         return $this->extension;
+    }
+
+    public function build(ContainerBuilder $container)
+    {
+        $container->registerForAutoconfiguration(WordProviderInterface::class)
+            ->addTag('es_core_word_provider');
+        $container->addCompilerPass(new WordProviderCompilerPass());
     }
 }

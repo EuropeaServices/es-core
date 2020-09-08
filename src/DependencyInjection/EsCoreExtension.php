@@ -1,12 +1,13 @@
 <?php
 
-namespace ES\EsCoreBundle\DependencyInjection;
+namespace ES\CoreBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use ES\CoreBunble\WordProviderInterface;
 
 class EsCoreExtension extends Extension
 {
@@ -19,13 +20,6 @@ class EsCoreExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $definition = $container->getDefinition('es_core.es_core');
-        if (null !== $config['word_provider']) {
-            $container->setAlias('es_core.word_provider', $config['word_provider']);
-        }
-
-        if (null !== $config['word_provider']) {
-            $definition->setArgument(0, new Reference($config['word_provider']));
-        }
         $definition->setArgument(1, $config['min_sunshine']);
 
         //var_dump($config);die;

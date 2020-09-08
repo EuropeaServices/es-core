@@ -1,6 +1,6 @@
 <?php
 
-namespace ES\EsCoreBundle;
+namespace ES\CoreBundle;
 
 class EsCoreWordProvider implements WordProviderInterface
 {
