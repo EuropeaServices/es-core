@@ -1,5 +1,5 @@
 {
-    "name": "es/es-core",
+    "name": "es-core/es-core",
     "description": "Core Europea Services",
     "type": "symfony-bundle",
     "license": "MIT",
