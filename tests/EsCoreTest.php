@@ -9,7 +9,7 @@ class EsCoreTest extends TestCase
 {
     public function testGetWords()
     {
-        $ipsum = new EsCore(new EsCoreWordProvider());
+        $ipsum = new EsCore([new EsCoreWordProvider()]);
         $words = $ipsum->getWords(1);
         $this->assertIsString($words);
         $this->assertCount(1, explode(' ', $words));

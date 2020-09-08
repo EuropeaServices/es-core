@@ -29,7 +29,8 @@ class FunctionalTest extends TestCase
         $kernel->boot();
         $container = $kernel->getContainer();
         $ipsum = $container->get('es_core.es_core');
-        $this->assertStringContainsString('stub', $ipsum->getWords(2));
+        $this->assertEquals(count($ipsum->getWordList()), 27);
+
     }
 }
 
@@ -52,11 +53,12 @@ class EsCoreTestingKernel extends Kernel
             new EsCoreBundle(),
         ];
     }
+
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load(function(ContainerBuilder $container) {
-            $container->register('stub_word_list', StubWordList::class);
-            $container->loadFromExtension('es_core', $this->esCoreConfig);
+            $container->register('stub_word_list', StubWordList::class)
+                ->addTag('es_core_word_provider');
         });
     }
 
