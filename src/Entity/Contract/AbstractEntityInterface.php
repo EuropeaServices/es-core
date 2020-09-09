@@ -1,7 +1,7 @@
 <?php
 namespace Es\CoreBundle\Entity\Contract;
 
-use Es\CoreBundle\Entity\User;
+use Es\CoreBundle\Entity\Security\User;
 
 /**
  * interface AbstractEntity

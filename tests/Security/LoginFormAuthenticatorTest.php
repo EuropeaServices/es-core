@@ -2,7 +2,7 @@
 
 namespace Es\CoreBundle\Tests\Security;
 
-use Es\CoreBundle\Entity\User;
+use Es\CoreBundle\Entity\Security\User;
 use Es\CoreBundle\Security\LoginFormAuthenticator;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 class LoginFormAuthenticatorTest extends TestCase
 {
 
-    const USER_CLASS = 'Es\CoreBundle\Entity\User';
+    const USER_CLASS = 'Es\CoreBundle\Entity\Security\User';
 
     const ROUTE_LOGIN_NAME = 'es_core_login';
 

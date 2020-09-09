@@ -1,7 +1,7 @@
 <?php
 namespace Es\CoreBundle\Entity\Contract;
 
-use Es\CoreBundle\Entity\User;
+use Es\CoreBundle\Entity\Security\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,9 +36,9 @@ trait AbstractEntityTrait
 
     /**
      *
-     * @var \Es\CoreBundle\Entity\User
+     * @var User
      *
-     * @ORM\ManyToOne(targetEntity="Es\CoreBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="created_by", referencedColumnName="id")
      * })
@@ -47,9 +47,9 @@ trait AbstractEntityTrait
 
     /**
      *
-     * @var \Es\CoreBundle\Entity\User
+     * @var User
      *
-     * @ORM\ManyToOne(targetEntity="Es\CoreBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="updated_by", referencedColumnName="id")
      * })
@@ -58,9 +58,9 @@ trait AbstractEntityTrait
 
     /**
      *
-     * @var \Es\CoreBundle\Entity\User
+     * @var User
      *
-     * @ORM\ManyToOne(targetEntity="Es\CoreBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="deleted_by", referencedColumnName="id")
      * })

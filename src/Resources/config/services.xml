@@ -6,6 +6,9 @@
     <services>
         <service id="es_core.controller.security_controller" class="Es\CoreBundle\Controller\SecurityController" public="true">
             <argument type="service" id="security.authentication_utils" />
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
         </service>
 
         <service id="es_core.login_form_authenticator" class="Es\CoreBundle\Security\LoginFormAuthenticator" public="true">
