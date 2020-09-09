@@ -1,59 +1,107 @@
 <?php
-namespace ES\EsCore\Tests\Controller;
 
-use ES\CoreBundle\EsCoreBundle;
-use ES\CoreBundle\Controller\SecurityController;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+namespace Es\CoreBundle\Tests\Controller;
+
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Routing\RouteCollectionBuilder;
-use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Request;
+use Es\CoreBundle\Controller\SecurityController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 class SecurityControllerTest extends TestCase
 {
-    public function testIndex()
+    /**
+     * @var SecurityBundle
+     */
+    private $controller;
+
+    /**
+     * @var Request
+     */
+    private $request;
+
+    /**
+     * @var array
+     */
+    private $protectedTestedMethods;
+
+    /**
+     * @var AuthenticationUtils
+     */
+    private $authenticationUtils;
+
+    /** 
+     * @var TokenManager
+     */ 
+    private $tokenStorage;
+
+    /** 
+     * @var \PHPUnit_Framework_MockObject_MockObject 
+     */
+    private $twig;
+
+    /** 
+     * @var \PHPUnit_Framework_MockObject_MockObject 
+     */
+    private $router;
+
+    protected function setUp(): void
     {
-        $kernel = new SecurityControllerKernel();
-        $client = new KernelBrowser($kernel);
-        $client->request('GET', '/es_login');
-        var_dump($client->getResponse()->getContent());
-        $this->assertSame(200, $client->getResponse()->getStatusCode());
+        $this->authenticationUtils = $this->getMockBuilder(AuthenticationUtils::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->request = new Request();
+        $this->container = new Container();
+        $this->tokenStorage = new TokenManager();
+        $this->twig = $this->getMockBuilder(\Twig\Environment::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->router = $this->getMockBuilder(Router::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->router->method("generate")->will($this->returnValue("/"));
+        $this->container->set("security.token_storage", $this->tokenStorage);
+        $this->container->set("twig", $this->twig);
+        $this->container->set("router", $this->router);
+        $this->controller = new SecurityController($this->authenticationUtils);
+        $this->controller->setContainer($this->container);
+        $testedMethods = [
+            'login',
+            'logout'
+        ];
+        foreach ($testedMethods as $testedMethod) {
+            $method = new \ReflectionMethod(SecurityController::class, $testedMethod);
+            $method->setAccessible(true);
+            $this->protectedTestedMethods[$testedMethod] = $method;
+        }
+    }
+
+    public function testLogin()
+    {
+        $this->twig->method("render")->will($this->returnValue("<html></html>"));
+        $response = $this->protectedTestedMethods['login']->invoke($this->controller, "", 200, [], $this->request);
+
+        $this->assertSame(200, $response->getStatusCode());
+    }
+
+    public function testLogout()
+    {
+        $response = $this->protectedTestedMethods['logout']->invoke($this->controller, "", 200, [], $this->request);
+
+        $this->assertSame(302, $response->getStatusCode());
     }
 }
 
-class SecurityControllerKernel extends Kernel
+/**
+ * On est obligé de créer cette classe remplaçant le service
+ * Symfony\Component\Security\Core\Authentication\Token\Storage\UsageTrackingTokenStorage
+ * car on peut pas le mock (il a l'attribut final)
+ */
+class TokenManager
 {
-    use MicroKernelTrait;
-
-    public function __construct()
+    public function getToken()
     {
-        parent::__construct('test', true);
-    }
-    public function registerBundles()
-    {
-        return [
-            new EsCoreBundle(),
-            new FrameworkBundle(),
-        ];
-    }
-
-    protected function configureRoutes(RouteCollectionBuilder $routes)
-    {
-        $routes->import(__DIR__.'/../../src/Resources/config/routes.xml', '/');
-    }
-
-    protected function configureContainer(ContainerBuilder $c, LoaderInterface $loader)
-    {
-        $c->loadFromExtension('framework', [
-            'secret' => '$ecretf0rt3st',
-        ]);
-    }
-
-    public function getCacheDir()
-    {
-        return $this->getProjectDir().'/var/cache/'.$this->environment."/".spl_object_hash($this);
+        return null;
     }
 }

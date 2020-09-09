@@ -1,5 +1,5 @@
 <?php
-namespace ES\CoreBundle\Event;
+namespace Es\CoreBundle\Event;
 
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -10,7 +10,7 @@ class EsCoreEvents
      *
      * Listeners have the opportunity to change that data.
      *
-     * @Event("ES\CoreBundle\Event\SecurityResponseEvent")
+     * @Event("Es\CoreBundle\Event\SecurityResponseEvent")
      */
     const SECURITY = 'es_core.security';
 }

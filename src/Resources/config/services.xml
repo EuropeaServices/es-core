@@ -4,18 +4,16 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="es_core.es_core" class="ES\CoreBundle\EsCore"  public="true" >
-            <argument type="tagged" tag="es_core_word_provider" />
+        <service id="es_core.controller.security_controller" class="Es\CoreBundle\Controller\SecurityController" public="true">
+            <argument type="service" id="security.authentication_utils" />
         </service>
-        <service id="ES\CoreBundle\EsCore" alias="es_core.es_core" public="true" />
 
-        <service id="es_core.es_core_word_provider" class="ES\CoreBundle\EsCoreWordProvider">
-            <tag name="es_core_word_provider" />
+        <service id="es_core.login_form_authenticator" class="Es\CoreBundle\Security\LoginFormAuthenticator" public="true">
+            <argument type="service" id="router.default" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="security.csrf.token_manager" />
+            <argument type="service" id="security.user_password_encoder.generic" />
         </service>
-        <service id="es_core.word_provider" alias="es_core.es_core_word_provider" public="false" />
-
-       <service id="es_core.controller.security_controller" class="ES\CoreBundle\Controller\SecurityController" public="true">
-            <tag name="controller.service_arguments"/>
-        </service>
+        <service id="Es\CoreBundle\Security\LoginFormAuthenticator" alias="es_core.login_form_authenticator" public="true" />
     </services>
 </container>

@@ -1,13 +1,13 @@
 <?php
 
-namespace ES\CoreBundle\DependencyInjection;
+namespace Es\CoreBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use ES\CoreBunble\WordProviderInterface;
+use Es\CoreBunble\WordProviderInterface;
 
 class EsCoreExtension extends Extension
 {
@@ -19,10 +19,10 @@ class EsCoreExtension extends Extension
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
 
-        $definition = $container->getDefinition('es_core.es_core');
-        $definition->setArgument(1, $config['min_sunshine']);
-
-        //var_dump($config);die;
+        /*$definition = $container->getDefinition('es_core.controller.security_controller');
+        if (null !== $config['login_form_authenticator']) {
+            $definition->setArgument(0, $config['login_form_authenticator']);
+        }*/
     }
 
     public function getAlias()

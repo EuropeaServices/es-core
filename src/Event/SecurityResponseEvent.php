@@ -1,5 +1,5 @@
 <?php
-namespace ES\CoreBundle\Event;
+namespace Es\CoreBundle\Event;
 
 use Symfony\Contracts\EventDispatcher\Event;
 
