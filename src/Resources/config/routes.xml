@@ -3,10 +3,27 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
+
     <route id="es_core_login" path="/login" methods="GET POST">
-        <default key="_controller">es_core.controller.security_controller::login</default>
+        <default key="_controller">es_core.controller.security.security_controller::login</default>
     </route>
     <route id="es_core_logout" path="/logout" methods="GET">
-        <default key="_controller">es_core.controller.security_controller::logout</default>
+        <default key="_controller">es_core.controller.security.security_controller::logout</default>
     </route>
+
+    <route id="es_core_resetting_request" path="/forgetPassword" methods="GET">
+        <default key="_controller">es_core.controller.security.resetting_controller::resettingRequest</default>
+    </route>
+    <route id="es_core_resetting_send_email" path="/forgetPasswordSendMail" methods="POST">
+        <default key="_controller">es_core.controller.security.resetting_controller::sendEmailAction</default>
+    </route>
+    <route id="es_core_resetting_confirm_send_email" path="/forgetPasswordSendMailConfirm" methods="GET">
+        <default key="_controller">es_core.controller.security.resetting_controller::confirmSendEmailAction</default>
+    </route>
+
+        <route id="es_core_reset_password" path="/resetPassword/{token}" methods="GET POST">
+        <default key="_controller">es_core.controller.security.resetting_controller::resetPassword</default>
+    </route>
+
+    
 </routes>

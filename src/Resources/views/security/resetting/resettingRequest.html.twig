@@ -1,0 +1,15 @@
+{% extends ('@EsCore/layout.html.twig') %}
+
+{% block title %}Forget Password{% endblock %}
+
+{% block body %}
+<form action="{{ path('es_core_resetting_send_email') }}" method="POST">
+    <div>
+        <label for="username">username</label>
+        <input type="text" id="username" name="username" required="required" />
+    </div>
+    <div>
+        <input type="submit" value="Envoyer" />
+    </div>
+</form>
+{% endblock %}

@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="es_core.controller.security_controller" class="Es\CoreBundle\Controller\SecurityController" public="true">
-            <argument type="service" id="security.authentication_utils" />
-            <call method="setContainer">
-                <argument type="service" id="service_container"/>
-            </call>
-        </service>
-
         <service id="es_core.login_form_authenticator" class="Es\CoreBundle\Security\LoginFormAuthenticator" public="true">
             <argument type="service" id="router.default" />
             <argument type="service" id="doctrine.orm.entity_manager" />
@@ -18,5 +10,23 @@
             <argument type="service" id="security.user_password_encoder.generic" />
         </service>
         <service id="Es\CoreBundle\Security\LoginFormAuthenticator" alias="es_core.login_form_authenticator" public="true" />
+
+        <service id="es_core.security.utils" class="Es\CoreBundle\Security\SecurityUtils" public="true">
+            <argument type="service" id="security.encoder_factory.generic" />
+        </service>
+        <service id="Es\CoreBundle\Security\SecurityUtils" alias="es_core.security.utils" public="true" />
+        
+        <service id="es_core.email" class="Es\CoreBundle\Mailer\CoreEmail" public="true">
+            <argument type="service" id="kernel" />
+        </service>
+        <service id="Es\CoreBundle\Mailer\CoreEmail" alias="es_core.email" public="true" />
+
+        <service id="es_core.mailer" class="Es\CoreBundle\Mailer\CoreMailer" public="true">
+            <argument type="service" id="mailer.mailer" />
+            <argument type="service" id="es_core.email" />
+            <argument type="service" id="twig" />
+            <argument type="service" id="router.default" />
+        </service>
+        <service id="Es\CoreBundle\Mailer\CoreMailer" alias="es_core.mailer" public="true" />
     </services>
 </container>

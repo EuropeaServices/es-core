@@ -15,7 +15,7 @@ use Es\CoreBundle\Entity\Security\Group;
 /**
  * @ORM\Table(name="sec_user")
  * @UniqueEntity(fields="email")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Es\CoreBundle\Repository\Security\UserRepository")
  */
 class User implements UserInterface, \Serializable, AbstractEntityInterface
 {
@@ -74,6 +74,16 @@ class User implements UserInterface, \Serializable, AbstractEntityInterface
      * @ORM\Column(type="string", length=64)
      */
     private $password;
+
+    /**
+     * @ORM\Column(name="confirmation_token", type="string", length=255, nullable=true)
+     */
+    protected $confirmationToken;
+
+    /**
+     * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
+     */
+    protected $passwordRequestedAt;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
@@ -232,48 +242,84 @@ class User implements UserInterface, \Serializable, AbstractEntityInterface
         ) = unserialize($serialized);
     }
 
-    function getId()
+    public function getId()
     {
         return $this->id;
     }
 
-    function getEmail()
+    public function getEmail()
     {
         return $this->email;
     }
 
-    function getPlainPassword()
+    public function getPlainPassword()
     {
         return $this->plainPassword;
-    }
+    }    
 
-    function getIsActive()
+    public function getIsActive()
     {
         return $this->isActive;
     }
 
-    function setId($id)
+    public function setId($id)
     {
         $this->id = $id;
     }
 
-    function setEmail($email)
+    public function setEmail($email)
     {
         $this->email = $email;
     }
 
-    function setUsername($username)
+    public function setUsername($username)
     {
         $this->username = $username;
     }
 
-    function setPlainPassword($plainPassword)
+    public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
     }
 
-    function setIsActive($isActive)
+    public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getConfirmationToken()
+    {
+        return $this->confirmationToken;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setConfirmationToken($confirmationToken)
+    {
+        $this->confirmationToken = $confirmationToken;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPasswordRequestedAt(\DateTime $date = null)
+    {
+        $this->passwordRequestedAt = $date;
+
+        return $this;
+    }
+
+    /**
+     * @return null|\DateTime
+     */
+    public function getPasswordRequestedAt()
+    {
+        return $this->passwordRequestedAt;
     }
 }
