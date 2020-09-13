@@ -1,15 +1,40 @@
+{% trans_default_domain 'EsCoreBundle' %} 
 {% extends ('@EsCore/layout.html.twig') %}
 
-{% block title %}Forget Password{% endblock %}
-
 {% block body %}
-<form action="{{ path('es_core_resetting_send_email') }}" method="POST">
-    <div>
-        <label for="username">username</label>
-        <input type="text" id="username" name="username" required="required" />
+<div class="login-box">
+  <div class="login-logo">
+    <b>Es</b>Core
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">{{'describe_forget_password'|trans}}</p>
+
+      <form action="{{ path('es_core_resetting_send_email') }}" method="POST">
+        <div class="input-group mb-3">
+          <input class="form-control" type="text" id="username" name="username" required="required" placeholder="{{'username_or_email'|trans}}" />
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block">{{'request_new_password'|trans}}</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <p class="mt-3 mb-1">
+        <a href="{{path('es_core_login')}}">{{'return'|trans}}</a>
+      </p>
+
     </div>
-    <div>
-        <input type="submit" value="Envoyer" />
-    </div>
-</form>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+
 {% endblock %}

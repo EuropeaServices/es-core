@@ -17,12 +17,13 @@ class ResettingType extends AbstractType
             'type' => PasswordType::class,
             'options' => array(
                 'attr' => array(
-                    'autocomplete' => 'nouveau mot depasse',
+                    'translation_domain' => 'EsCoreBundle'
                 ),
             ),
-            'first_options' => array('label' => 'nouveau mdp'),
-            'second_options' => array('label' => 'confirmation'),
-            'invalid_message' => 'erreur',
+            'translation_domain' => 'EsCoreBundle',
+            'first_options' => array('label' => 'form_resetting_new_password'),
+            'second_options' => array('label' => 'form_resetting_new_password_confirm'),
+            'invalid_message' => 'form_resetting_error',
         ));
     }
 

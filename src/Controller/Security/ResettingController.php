@@ -46,7 +46,7 @@ class ResettingController extends AbstractController
     {
         $username = $request->request->get('username');
 
-        $user = $this->userRepository->findUserByUsernameOrEmail($username);
+        $user = $this->entityManager->getRepository(User::class)->findUserByUsernameOrEmail($username);
         if (
             $user !== null
             && !($this->securityUtils->isPasswordRequestNonExpired($user))

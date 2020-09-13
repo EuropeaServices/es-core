@@ -1,12 +1,25 @@
+{% trans_default_domain 'EsCoreBundle' %} 
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}Es Core{% endblock %}</title>
+        {% block stylesheets %}
+          <link rel="stylesheet" href="{{asset('bundles/escore/plugins/fontawesome-free/css/all.min.css')}}">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="{{asset('bundles/escore/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{asset('bundles/escore/css/adminlte.min.css')}}" />
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+        {% endblock %}
     </head>
-    <body>
+    <body class="hold-transition login-page">
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+            <!-- Bootstrap 4 -->
+            <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+            <!-- AdminLTE App -->
+            <script src="{{asset('js/adminlte.min.js')}}"></script>
+        {% endblock %}
     </body>
 </html>

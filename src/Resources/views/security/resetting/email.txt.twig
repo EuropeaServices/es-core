@@ -1,13 +1,13 @@
-
+{% trans_default_domain 'EsCoreBundle' %}
 {% block subject %}
 {%- autoescape false -%}
-Test {{user.username}}
+{{"suject_resetting_mail" | trans }}
 {%- endautoescape -%}
 {% endblock %}
 
 {% block body_text %}
 {% autoescape false %}
-Lien pour reset : {{confirmationUrl}}
+{{"body_resetting_mail" | trans({'%firstname%': user.firstname, '%lastname%': user.lastname, '%url%':confirmationUrl})}}
 {% endautoescape %}
 {% endblock %}
 {% block body_html %}{% endblock %}

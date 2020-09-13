@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="en" datatype="plaintext" original="">
+        <body>
+            <trans-unit id="form_resetting_error">
+                <source>form_resetting_error</source>
+                <target>Erreur, les mot de passes doivent être identiques</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

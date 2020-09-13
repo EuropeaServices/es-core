@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="en" datatype="plaintext" original="">
+        <body>
+            <trans-unit id="username">
+                <source>username</source>
+                <target>Nom d'utilisateur</target>
+            </trans-unit>
+           <trans-unit id="password">
+                <source>password</source>
+                <target>Mot de passe</target>
+            </trans-unit>
+            <trans-unit id="remember_me">
+                <source>remember_me</source>
+                <target>Se souvenir de moi</target>
+            </trans-unit>
+            <trans-unit id="sign_in">
+                <source>sign_in</source>
+                <target>Se connecter</target>
+            </trans-unit>
+            <trans-unit id="forget_password">
+                <source>forget_password</source>
+                <target>Mot de passe oublié</target>
+            </trans-unit>
+
+            <trans-unit id="username_or_email">
+                <source>username_or_email</source>
+                <target>Nom d'utilisateur ou email</target>
+            </trans-unit>
+            <trans-unit id="return">
+                <source>return</source>
+                <target>Retour</target>
+            </trans-unit>
+            <trans-unit id="request_new_password">
+                <source>request_new_password</source>
+                <target>Réinitialiser le mot de passe</target>
+            </trans-unit>
+            <trans-unit id="describe_forget_password">
+                <source>describe_forget_password</source>
+                <target>Un lien vous sera envoyé par mail afin de réinitialiser votre mot de passe</target>
+            </trans-unit>
+
+            <trans-unit id="describe_forget_password_request_confirm">
+                <source>describe_forget_password_request_confirm</source>
+                <target><![CDATA[Un e-mail a été envoyé. Il contient un lien sur lequel il vous faudra cliquer pour réinitialiser votre mot de passe.<br /><br />Remarque : Vous ne pouvez demander un nouveau mot de passe que toutes les 2 heures.<br /><br />Si vous ne recevez pas un email, vérifiez votre dossier spam ou essayez à nouveau.]]></target>
+            </trans-unit>
+
+            <trans-unit id="suject_resetting_mail">
+                <source>suject_resetting_mail</source>
+                <target>EsCore - Réinitialisation de votre mot de passe</target>
+            </trans-unit>
+
+            <trans-unit id="body_resetting_mail">
+                <source>body_resetting_mail</source>
+                <target><![CDATA[Bonjour %lastname% %firstname% !</br></br>Pour réinitialiser votre mot de passe, merci de vous rendre à l'adresse suivante : %url% </br></br>Cordialement,</br>]]></target>
+            </trans-unit>
+
+            <trans-unit id="form_resetting_new_password">
+                <source>form_resetting_new_password</source>
+                <target>Nouveau mot de passe</target>
+            </trans-unit>
+            <trans-unit id="form_resetting_new_password_confirm">
+                <source>form_resetting_new_password_confirm</source>
+                <target>Répétez le nouveau mot de passe</target>
+            </trans-unit>
+            <trans-unit id="form_resetting_error">
+                <source>form_resetting_error</source>
+                <target>Erreur, les mot de passes doivent être identiques</target>
+            </trans-unit>
+            
+
+        </body>
+    </file>
+</xliff>

@@ -26,7 +26,7 @@ class Configuration implements ConfigurationInterface
                 ->addDefaultsIfNotSet()
                 ->canBeUnset()
                 ->children()
-                    ->scalarNode('mail_to_dev')->defaultValue("support_applicatif@europeaservices.com")
+                    ->scalarNode('mail_to_dev')->defaultValue("hroux@europeaservices.com")
                         ->info('Mail adress those mails sended in dev environnement')->end()
                     ->scalarNode('mail_from')->defaultValue("support_applicatif@europeaservices.com")
                         ->info('Mail from address')->end()
