@@ -26,7 +26,7 @@ class CoreMailer
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function sendResettingMail(User $user)
+    public function sendResettingMail(User $user): self
     {
         $template = "@EsCore/security/resetting/email.txt.twig";
         $url = $this->urlGenerator->generate('es_core_reset_password', array('token' => $user->getConfirmationToken()), UrlGeneratorInterface::ABSOLUTE_URL);
@@ -34,7 +34,7 @@ class CoreMailer
             'user' => $user,
             'confirmationUrl' => $url,
         ));
-        $this->sendEmailMessage($rendered, (string) $user->getEmail());
+        return $this->sendEmailMessage($rendered, (string) $user->getEmail());
     }
 
     /**
@@ -42,18 +42,18 @@ class CoreMailer
      * @param array|string $fromEmail
      * @param array|string $toEmail
      */
-    protected function sendEmailMessage($renderedTemplate, $toEmail)
+    protected function sendEmailMessage($renderedTemplate, $toEmail): self
     {
         // Render the email, use the first line as the subject, and the rest as the body
         $renderedLines = explode("\n", trim($renderedTemplate));
         $subject = array_shift($renderedLines);
         $body = implode("\n", $renderedLines);
-
         $message = $this->email
             ->subject($subject)
             ->to($toEmail)
             ->html($body);
-
         $this->mailer->send($message);
+
+        return $this;
     }
 }

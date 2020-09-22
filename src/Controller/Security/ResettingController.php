@@ -17,8 +17,6 @@ class ResettingController extends AbstractController
 
     private $securityUtils;
 
-    private $tokenGenerator;
-
     private $entityManager;
 
     private $coreMailer;
@@ -33,7 +31,7 @@ class ResettingController extends AbstractController
         $this->formFactory = $formFactory;
     }
 
-    public function resettingRequest()
+    protected function resettingRequest()
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('home');
@@ -42,7 +40,7 @@ class ResettingController extends AbstractController
         return $this->render('@EsCore/security/resetting/resettingRequest.html.twig', []);
     }
 
-    public function sendEmailAction(Request $request)
+    protected function sendEmailAction(Request $request)
     {
         $username = $request->request->get('username');
 
@@ -60,12 +58,12 @@ class ResettingController extends AbstractController
         return $this->redirectToRoute('es_core_resetting_confirm_send_email');
     }
 
-    public function confirmSendEmailAction()
+    protected function confirmSendEmailAction()
     {
         return $this->render('@EsCore/security/resetting/resettingRequestConfirm.html.twig', []);
     }
 
-    public function resetPassword(Request $request, $token)
+    protected function resetPassword(Request $request, $token)
     {
         $user = $this->entityManager->getRepository(User::class)->findOneBy(["confirmationToken" =>  $token]);
 

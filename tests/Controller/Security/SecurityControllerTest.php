@@ -8,11 +8,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Es\CoreBundle\Controller\Security\SecurityController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Es\CoreBundle\Tests\TestingUtils\TokenManager;
 
 class SecurityControllerTest extends TestCase
 {
     /**
-     * @var SecurityBundle
+     * @var SecurityController
      */
     private $controller;
 
@@ -93,15 +94,4 @@ class SecurityControllerTest extends TestCase
     }
 }
 
-/**
- * On est obligé de créer cette classe remplaçant le service
- * Symfony\Component\Security\Core\Authentication\Token\Storage\UsageTrackingTokenStorage
- * car on peut pas le mock (il a l'attribut final)
- */
-class TokenManager
-{
-    public function getToken()
-    {
-        return null;
-    }
-}
+
