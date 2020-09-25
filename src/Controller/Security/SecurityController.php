@@ -15,7 +15,7 @@ class SecurityController extends AbstractController
         $this->authenticationUtils = $authenticationUtils;
     }
 
-    protected function login(): Response
+    public function login(): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('home');
@@ -26,7 +26,7 @@ class SecurityController extends AbstractController
         return $this->render('@EsCore/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
-    protected function logout()
+    public function logout()
     {
         return $this->redirectToRoute('es_core_login');
     }

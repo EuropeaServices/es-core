@@ -38,7 +38,7 @@ trait AbstractEntityTrait
      *
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Es\CoreBundle\Entity\Security\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="created_by", referencedColumnName="id")
      * })
@@ -49,7 +49,7 @@ trait AbstractEntityTrait
      *
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Es\CoreBundle\Entity\Security\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="updated_by", referencedColumnName="id")
      * })
@@ -60,7 +60,7 @@ trait AbstractEntityTrait
      *
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Es\CoreBundle\Entity\Security\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="deleted_by", referencedColumnName="id")
      * })
