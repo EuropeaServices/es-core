@@ -2,23 +2,25 @@
 
 namespace Es\CoreBundle\Entity\Security;
 
+use Doctrine\ORM\Mapping as ORM;
 use Es\CoreBundle\Entity\Security\User;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use Es\CoreBundle\Entity\Security\GroupInterface;
 use Es\CoreBundle\Entity\Contract\AbstractEntityTrait;
+use Symfony\Component\Validator\Constraints as Assert;
+use Es\CoreBundle\Entity\Security\UserInterface;
 use Es\CoreBundle\Entity\Contract\AbstractEntityInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Group
  *
- * @ORM\Table(name="sec_group", indexes={@ORM\Index(name="name", columns={"name"})})
  * @UniqueEntity(fields="name")
- * @ORM\Entity()
+ * @ORM\MappedSuperclass
  */
-class Group implements AbstractEntityInterface
+
+class Group implements GroupInterface, AbstractEntityInterface
 {
 
     use AbstractEntityTrait;
@@ -69,7 +71,7 @@ class Group implements AbstractEntityInterface
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -77,7 +79,7 @@ class Group implements AbstractEntityInterface
     /**
      * {@inheritdoc}
      */
-    public function setName($name)
+    public function setName($name): string
     {
         $this->name = $name;
 
@@ -87,7 +89,7 @@ class Group implements AbstractEntityInterface
     /**
      * {@inheritdoc}
      */
-    public function hasRole($role)
+    public function hasRole($role): bool
     {
         return in_array(strtoupper($role), $this->roles, true);
     }
@@ -95,7 +97,7 @@ class Group implements AbstractEntityInterface
     /**
      * {@inheritdoc}
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->roles;
     }
@@ -103,7 +105,7 @@ class Group implements AbstractEntityInterface
     /**
      * {@inheritdoc}
      */
-    public function removeRole($role)
+    public function removeRole($role): self
     {
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
             unset($this->roles[$key]);
@@ -116,7 +118,7 @@ class Group implements AbstractEntityInterface
     /**
      * {@inheritdoc}
      */
-    public function setRoles(array $roles)
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
@@ -124,14 +126,14 @@ class Group implements AbstractEntityInterface
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|UserInterface[]
      */
     public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    public function addUser(User $user): self
+    public function addUser(UserInterface $user): self
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
@@ -141,7 +143,7 @@ class Group implements AbstractEntityInterface
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeUser(UserInterface $user): self
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);

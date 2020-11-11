@@ -57,6 +57,11 @@ class LoginFormAuthenticatorTest extends TestCase
      */
     protected $urlGenerator;
 
+    /**
+     * @var string
+     */
+    private $userClass = "Es\CoreBundle\Entity\Security\User";
+
     protected function setUp(): void
     {
 
@@ -71,7 +76,13 @@ class LoginFormAuthenticatorTest extends TestCase
             ->will($this->returnValue($this->repository));
         $this->csrfTokenManager->method('isTokenValid')
             ->will($this->returnValue(true));
-        $this->loginFormAuthenticator = new LoginFormAuthenticator($this->urlGenerator, $this->entityManager, $this->csrfTokenManager, $this->passwordEncoder);
+        $this->loginFormAuthenticator = new LoginFormAuthenticator(
+            $this->urlGenerator, 
+            $this->entityManager, 
+            $this->csrfTokenManager, 
+            $this->passwordEncoder,
+            $this->userClass
+        );
     }
 
     public function testSupport()

@@ -24,6 +24,7 @@ class SecurityUtilsTest extends TestCase
      * @var integer
      */
     private $retryTtl = 7200;
+    
 
     protected function setUp(): void
     {

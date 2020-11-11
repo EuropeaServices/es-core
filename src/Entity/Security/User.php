@@ -5,17 +5,17 @@ namespace Es\CoreBundle\Entity\Security;
 use Es\CoreBundle\Entity\Contract\AbstractEntityInterface;
 use Es\CoreBundle\Entity\Contract\AbstractEntityTrait;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Es\CoreBundle\Entity\Security\Group;
+use Es\CoreBundle\Entity\Security\GroupInterface;
+use Es\CoreBundle\Entity\Security\UserInterface;
 
 /**
- * @ORM\Table(name="sec_user")
  * @UniqueEntity(fields="email")
- * @ORM\Entity(repositoryClass="Es\CoreBundle\Repository\Security\UserRepository")
+ * @ORM\MappedSuperclass(repositoryClass="Es\CoreBundle\Repository\Security\UserRepository")
  */
 class User implements UserInterface, \Serializable, AbstractEntityInterface
 {
@@ -27,14 +27,14 @@ class User implements UserInterface, \Serializable, AbstractEntityInterface
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      */
-    private $username;
+    protected $username;
 
     /**
      *
@@ -43,7 +43,7 @@ class User implements UserInterface, \Serializable, AbstractEntityInterface
      * @ORM\Column(name="lastname", type="string", length=255, nullable=false)
      * @Assert\NotBlank()
      */
-    private $lastname;
+    protected $lastname;
 
     /**
      *
@@ -52,20 +52,20 @@ class User implements UserInterface, \Serializable, AbstractEntityInterface
      * @ORM\Column(name="firstname", type="string", length=255, nullable=false)
      * @Assert\NotBlank()
      */
-    private $firstname;
+    protected $firstname;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
-    private $email;
+    protected $email;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max=250)
      */
-    private $plainPassword;
+    protected $plainPassword;
 
     /**
      * The below length depends on the "algorithm" you use for encoding
@@ -73,7 +73,7 @@ class User implements UserInterface, \Serializable, AbstractEntityInterface
      *
      * @ORM\Column(type="string", length=64)
      */
-    private $password;
+    protected $password;
 
     /**
      * @ORM\Column(name="confirmation_token", type="string", length=255, nullable=true)
@@ -88,12 +88,12 @@ class User implements UserInterface, \Serializable, AbstractEntityInterface
     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
-    private $isActive;
+    protected $isActive;
 
     /**
      * @ORM\Column(name="roles", type="array")
      */
-    private $roles = array();
+    protected $roles = array();
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -155,14 +155,14 @@ class User implements UserInterface, \Serializable, AbstractEntityInterface
     }
 
     /**
-     * @return Collection|Group[]
+     * @return Collection|GroupInterface[]
      */
     public function getGroups(): Collection
     {
         return $this->groups;
     }
 
-    public function addGroup(Group $group): self
+    public function addGroup(GroupInterface $group): self
     {
         if (!$this->groups->contains($group)) {
             $this->groups[] = $group;
@@ -171,7 +171,7 @@ class User implements UserInterface, \Serializable, AbstractEntityInterface
         return $this;
     }
 
-    public function removeGroup(Group $group): self
+    public function removeGroup(GroupInterface $group): self
     {
         if ($this->groups->contains($group)) {
             $this->groups->removeElement($group);
@@ -252,10 +252,10 @@ class User implements UserInterface, \Serializable, AbstractEntityInterface
         return $this->email;
     }
 
-    public function getPlainPassword()
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
-    }    
+    }
 
     public function getIsActive()
     {
@@ -321,5 +321,10 @@ class User implements UserInterface, \Serializable, AbstractEntityInterface
     public function getPasswordRequestedAt()
     {
         return $this->passwordRequestedAt;
+    }
+
+    public function __toString()
+    {
+        return $this->username;
     }
 }

@@ -70,6 +70,8 @@ class ResettingControllerTest extends TestCase
      */
     private $formFactory;
 
+    private $userClass = "Es\CoreBundle\Entity\Security\User";
+
     protected function setUp(): void
     {
         $this->securityUtils = $this->getMockBuilder(SecurityUtils::class)
@@ -102,7 +104,8 @@ class ResettingControllerTest extends TestCase
             $this->securityUtils,
             $this->entityManager,
             $this->coreMailer,
-            $this->formFactory
+            $this->formFactory,
+            $this->userClass
         );
         $this->controller->setContainer($this->container);
         $testedMethods = [

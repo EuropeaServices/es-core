@@ -4,8 +4,8 @@ namespace Es\CoreBundle\Mailer;
 
 use Symfony\Component\Mailer\MailerInterface;
 use Es\CoreBundle\Mailer\CoreEmail;
-use Es\CoreBundle\Entity\Security\User;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Twig\Environment;
 
 class CoreMailer
@@ -26,7 +26,7 @@ class CoreMailer
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function sendResettingMail(User $user): self
+    public function sendResettingMail(UserInterface $user): self
     {
         $template = "@EsCore/security/resetting/email.txt.twig";
         $url = $this->urlGenerator->generate('es_core_reset_password', array('token' => $user->getConfirmationToken()), UrlGeneratorInterface::ABSOLUTE_URL);

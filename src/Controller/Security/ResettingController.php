@@ -2,15 +2,14 @@
 
 namespace Es\CoreBundle\Controller\Security;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Es\CoreBundle\Security\SecurityUtils;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
 use Es\CoreBundle\Mailer\CoreMailer;
 use Symfony\Component\Form\FormFactory;
+use Doctrine\ORM\EntityManagerInterface;
+use Es\CoreBundle\Security\SecurityUtils;
+use Symfony\Component\HttpFoundation\Request;
 use Es\CoreBundle\Form\Type\Security\ResettingType;
-use Es\CoreBundle\Entity\Security\User;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ResettingController extends AbstractController
 {
@@ -23,8 +22,11 @@ class ResettingController extends AbstractController
 
     private $formFactory;
 
-    public function __construct(SecurityUtils $securityUtils, EntityManagerInterface $entityManager, CoreMailer $coreMailer, FormFactory $formFactory)
+    private $userClass;
+
+    public function __construct(SecurityUtils $securityUtils, EntityManagerInterface $entityManager, CoreMailer $coreMailer, FormFactory $formFactory, string $userClass)
     {
+        $this->userClass = $userClass;
         $this->securityUtils = $securityUtils;
         $this->entityManager = $entityManager;
         $this->coreMailer = $coreMailer;
@@ -44,7 +46,7 @@ class ResettingController extends AbstractController
     {
         $username = $request->request->get('username');
 
-        $user = $this->entityManager->getRepository(User::class)->findUserByUsernameOrEmail($username);
+        $user = $this->entityManager->getRepository($this->userClass)->findUserByUsernameOrEmail($username);
         if (
             $user !== null
             && !($this->securityUtils->isPasswordRequestNonExpired($user))
@@ -65,7 +67,7 @@ class ResettingController extends AbstractController
 
     public function resetPassword(Request $request, $token)
     {
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(["confirmationToken" =>  $token]);
+        $user = $this->entityManager->getRepository($this->userClass)->findOneBy(["confirmationToken" =>  $token]);
 
         if (null === $user) {
             return new RedirectResponse($this->container->get('router')->generate('es_core_login'));

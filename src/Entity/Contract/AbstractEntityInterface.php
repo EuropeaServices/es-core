@@ -1,7 +1,7 @@
 <?php
 namespace Es\CoreBundle\Entity\Contract;
 
-use Es\CoreBundle\Entity\Security\User;
+use Es\CoreBundle\Entity\Security\UserInterface;
 
 /**
  * interface AbstractEntity
@@ -25,17 +25,17 @@ interface AbstractEntityInterface
 
     public function getDeletedAt(): ?\DateTime;
 
-    public function setCreatedBy(User $createdBy): void;
+    public function setCreatedBy(UserInterface $createdBy): void;
 
-    public function getCreatedBy(): User;
+    public function getCreatedBy(): UserInterface;
 
-    public function setUpdatedBy(User $updatedBy = null): void;
+    public function setUpdatedBy(UserInterface $updatedBy = null): void;
 
-    public function getUpdatedBy(): User;
+    public function getUpdatedBy(): UserInterface;
 
-    public function setDeletedBy(User $deletedBy = null): void;
+    public function setDeletedBy(UserInterface $deletedBy = null): void;
 
-    public function getDeletedBy(): ?User;
+    public function getDeletedBy(): ?UserInterface;
     
     public function getField(string $field);
 }

@@ -2,6 +2,7 @@
 namespace Es\CoreBundle\Entity\Contract;
 
 use Es\CoreBundle\Entity\Security\User;
+use Es\CoreBundle\Entity\Security\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,9 +37,9 @@ trait AbstractEntityTrait
 
     /**
      *
-     * @var User
+     * @var UserInterface
      *
-     * @ORM\ManyToOne(targetEntity="Es\CoreBundle\Entity\Security\User")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="created_by", referencedColumnName="id")
      * })
@@ -47,9 +48,9 @@ trait AbstractEntityTrait
 
     /**
      *
-     * @var User
+     * @var UserInterface
      *
-     * @ORM\ManyToOne(targetEntity="Es\CoreBundle\Entity\Security\User")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="updated_by", referencedColumnName="id")
      * })
@@ -58,9 +59,9 @@ trait AbstractEntityTrait
 
     /**
      *
-     * @var User
+     * @var UserInterface
      *
-     * @ORM\ManyToOne(targetEntity="Es\CoreBundle\Entity\Security\User")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="deleted_by", referencedColumnName="id")
      * })
@@ -134,21 +135,21 @@ trait AbstractEntityTrait
     /**
      * Set CreatedBy
      *
-     * @param User $CreatedBy
+     * @param UserInterface $createdBy
      *
      * @return void
      */
-    public function setCreatedBy(User $CreatedBy = null): void
+    public function setCreatedBy(UserInterface $createdBy = null): void
     {
-        $this->createdBy = $CreatedBy;
+        $this->createdBy = $createdBy;
     }
 
     /**
      * Get CreatedBy
      *
-     * @return User
+     * @return UserInterface
      */
-    public function getCreatedBy(): User
+    public function getCreatedBy(): UserInterface
     {
         return $this->createdBy;
     }
@@ -156,35 +157,35 @@ trait AbstractEntityTrait
     /**
      * Set UpdatedBy
      *
-     * @param User $UpdatedBy
+     * @param UserInterface $UpdatedBy
      *
      * @return void
      */
-    public function setUpdatedBy(User $UpdatedBy = null): void
+    public function setUpdatedBy(UserInterface $updatedBy = null): void
     {
-        $this->updatedBy = $UpdatedBy;
+        $this->updatedBy = $updatedBy;
     }
 
     /**
      * Get UpdatedBy
      *
-     * @return User
+     * @return UserInterface
      */
-    public function getUpdatedBy(): User
+    public function getUpdatedBy(): UserInterface
     {
         return $this->updatedBy;
     }
 
     /**
-     * Set DeletedBy
+     * Set deletedBy
      *
-     * @param User $DeletedBy
+     * @param UserInterface $deletedBy
      *
      * @return void
      */
-    public function setDeletedBy(User $DeletedBy = null): void
+    public function setDeletedBy(UserInterface $deletedBy = null): void
     {
-        $this->deletedBy = $DeletedBy;
+        $this->deletedBy = $deletedBy;
     }
 
     /**
@@ -192,7 +193,7 @@ trait AbstractEntityTrait
      *
      * @return User
      */
-    public function getDeletedBy(): ?User
+    public function getDeletedBy(): ?UserInterface
     {
         return $this->deletedBy;
     }

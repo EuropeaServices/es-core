@@ -8,9 +8,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 class UserRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, string $class = User::class)
     {
-        parent::__construct($registry, User::class);
+        parent::__construct($registry, $class);
     }
 
     public function findUserByUsernameOrEmail($usernameOrEmail)

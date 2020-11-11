@@ -2,7 +2,7 @@
 
 namespace Es\CoreBundle\Security;
 
-use Es\CoreBundle\Entity\Security\User;
+use Es\CoreBundle\Entity\Security\UserInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class SecurityUtils
@@ -17,13 +17,13 @@ class SecurityUtils
         $this->encoderFactory = $encoderFactory;
     }
 
-    public function isPasswordRequestNonExpired(User $user): bool
+    public function isPasswordRequestNonExpired(UserInterface $user): bool
     {
         return $user->getPasswordRequestedAt() instanceof \DateTime &&
             $user->getPasswordRequestedAt()->getTimestamp() + $this->retryTtl > time();
     }
 
-    public function encodePassword(User $user)
+    public function encodePassword(UserInterface $user)
     {
         $encoder = $this->encoderFactory->getEncoder($user);
         return $encoder->encodePassword($user->getPlainPassword(), $user->getSalt());
