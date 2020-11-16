@@ -5,9 +5,7 @@ namespace Es\CoreBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Es\CoreBundle\Repository\Security\UserRepository;
 
 class EsCoreExtension extends Extension
 {
@@ -18,6 +16,7 @@ class EsCoreExtension extends Extension
         $loader->load('services.xml');
         $loader->load('repositories.xml');
         $loader->load('controllers.xml');
+        $loader->load('events.xml');
         //$loader->load('doctrine-mapping/User.orm.xml');
         //$loader->load('validator/validation.xml');
 

@@ -21,7 +21,8 @@
         "symfony/form": "^4.4||^5.1",
         "symfony/validator": "^4.4||^5.1",
         "symfony/translation": "^4.4",
-        "almasaeed2010/adminlte": "~3.0"
+        "almasaeed2010/adminlte": "~3.0",
+        "doctrine/persistence": "^2.1"
     },
     "autoload": {
         "psr-4": {

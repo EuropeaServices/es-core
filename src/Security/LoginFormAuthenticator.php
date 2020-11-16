@@ -25,14 +25,49 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public const LOGIN_ROUTE = 'es_core_login';
 
+    /**
+     * The path of user class
+     *
+     * @var string
+     */
     private $userClass;
+
+    /**
+     * @var EntityManagerInterface
+     */
     private $entityManager;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
     private $urlGenerator;
+
+    /**
+     * @var CsrfTokenManagerInterface
+     */
     private $csrfTokenManager;
+
+    /**
+     * @var UserPasswordEncoderInterface
+     */
     private $passwordEncoder;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $entityManager, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, string $userClass)
-    {
+    /**
+     * The constructor
+     *
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param EntityManagerInterface $entityManager
+     * @param CsrfTokenManagerInterface $csrfTokenManager
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param string $userClass
+     */
+    public function __construct(
+        UrlGeneratorInterface $urlGenerator,
+        EntityManagerInterface $entityManager,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder,
+        string $userClass
+    ) {
         $this->userClass = $userClass;
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
@@ -40,13 +75,25 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function supports(Request $request):bool
+    /**
+     * Check if its need to ok to launch de login programm
+     *
+     * @param Request $request
+     * @return boolean
+     */
+    public function supports(Request $request): bool
     {
         return self::LOGIN_ROUTE === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
-    public function getCredentials(Request $request)
+    /**
+     * Get credentials and set the session the username of be connected
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function getCredentials(Request $request): array
     {
         $credentials = [
             'username' => $request->request->get('username'),
@@ -61,6 +108,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         return $credentials;
     }
 
+    /**
+     * Get the user by credintials
+     *
+     * @param array $credentials
+     * @param UserProviderInterface $userProvider
+     * @return void
+     */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);

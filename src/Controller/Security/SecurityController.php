@@ -3,18 +3,39 @@
 namespace Es\CoreBundle\Controller\Security;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Login Controller
+ * 
+ * @author hroux
+ * @since 11/11/2020
+ */
 class SecurityController extends AbstractController
 {
+    /**
+     * @var AuthenticationUtils
+     */
     private $authenticationUtils;
 
+    /**
+     * Constructor
+     *
+     * @param AuthenticationUtils $authenticationUtils
+     */
     public function __construct(AuthenticationUtils $authenticationUtils)
     {
         $this->authenticationUtils = $authenticationUtils;
     }
 
+    /**
+     * If the is connected, redirect to home
+     * Else print the login form
+     *
+     * @return Response|RedirectResponse
+     */
     public function login(): Response
     {
         if ($this->getUser()) {
@@ -26,6 +47,11 @@ class SecurityController extends AbstractController
         return $this->render('@EsCore/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
+    /**
+     * Redirect to login
+     *
+     * @return RedirectResponse
+     */
     public function logout()
     {
         return $this->redirectToRoute('es_core_login');
