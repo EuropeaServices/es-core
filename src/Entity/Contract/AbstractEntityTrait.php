@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @since 15/10/2019
  * @author hroux
  */
-class AbstractEntityTrait
+trait AbstractEntityTrait
 {
 
     /**
@@ -43,10 +43,6 @@ class AbstractEntityTrait
      *
      * @var UserInterface
      *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="created_by", referencedColumnName="id")
-     * })
      */
     protected $createdBy;
 
@@ -54,10 +50,6 @@ class AbstractEntityTrait
      *
      * @var UserInterface
      *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="updated_by", referencedColumnName="id")
-     * })
      */
     protected $updatedBy;
 
@@ -65,10 +57,6 @@ class AbstractEntityTrait
      *
      * @var UserInterface
      *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="deleted_by", referencedColumnName="id")
-     * })
      */
     protected $deletedBy;
 

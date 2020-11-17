@@ -17,8 +17,10 @@ use Es\CoreBundle\Entity\Security\UserInterface;
  * @UniqueEntity(fields="email")
  * @ORM\MappedSuperclass(repositoryClass="Es\CoreBundle\Repository\Security\UserRepository")
  */
-class User extends AbstractEntityTrait implements UserInterface, \Serializable, AbstractEntityInterface
+class User   implements UserInterface, \Serializable, AbstractEntityInterface
 {
+
+    use AbstractEntityTrait;
 
     /**
      * @ORM\Id

@@ -17,8 +17,6 @@ class EsCoreExtension extends Extension
         $loader->load('repositories.xml');
         $loader->load('controllers.xml');
         $loader->load('events.xml');
-        //$loader->load('doctrine-mapping/User.orm.xml');
-        //$loader->load('validator/validation.xml');
 
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
@@ -35,6 +33,9 @@ class EsCoreExtension extends Extension
 
         $definition = $container->getDefinition('es_core.controller.security.resetting_controller');
         $definition->setArgument(4, $config["user_class"]);
+
+        $definition = $container->getDefinition('es_core.event.doctrine.load_class_metadata');
+        $definition->setArgument(0, $config["user_class"]);
 
         /*$container->registerForAutoconfiguration(UserRepository::class)
             ->addTag('doctrine.repository_service');*/

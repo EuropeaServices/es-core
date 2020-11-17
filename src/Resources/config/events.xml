@@ -7,5 +7,9 @@
             <argument type="service" id="security.helper" />
             <tag name="doctrine.event_subscriber" />
         </service>
+
+        <service id="es_core.event.doctrine.load_class_metadata" class="Es\CoreBundle\Event\Doctrine\LoadClassMetadataEvent" public="true">
+            <tag name="doctrine.event_subscriber" />
+        </service>
     </services>
 </container>
