@@ -12,17 +12,21 @@ use Doctrine\ORM\Mapping as ORM;
  * @since 15/10/2019
  * @author hroux
  */
-trait AbstractEntityTrait
+class AbstractEntityTrait
 {
 
     /**
      *
+     * @var \DateTime
+     * 
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     protected $createdAt;
 
     /**
      *
+     * @var \DateTime
+     * 
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     protected $updatedAt;

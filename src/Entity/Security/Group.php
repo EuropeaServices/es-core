@@ -20,10 +20,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\MappedSuperclass
  */
 
-class Group implements GroupInterface, AbstractEntityInterface
+class Group extends AbstractEntityTrait implements GroupInterface, AbstractEntityInterface
 {
-
-    use AbstractEntityTrait;
 
     /**
      * @var int
