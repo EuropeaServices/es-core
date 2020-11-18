@@ -4,8 +4,8 @@ namespace Es\CoreBundle\Event\CRUD;
 
 use Doctrine\ORM\Events;
 use Doctrine\Common\EventSubscriber;
+use  Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\Security\Core\Security;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Es\CoreBundle\Entity\Contract\AbstractEntityInterface;
 
 /**
