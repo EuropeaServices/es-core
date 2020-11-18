@@ -37,7 +37,7 @@ class LoadClassMetadataEvent implements EventSubscriber
                 'joinColumns'   => [[
                     'name'                 => 'created_by',
                     'referencedColumnName' => 'id',
-                    'nullable'             => false,
+                    'nullable'             => true,
                 ]]
             ));
             $metadata->mapManyToOne(array(
@@ -46,7 +46,7 @@ class LoadClassMetadataEvent implements EventSubscriber
                 'joinColumns'   => [[
                     'name'                 => 'updated_by',
                     'referencedColumnName' => 'id',
-                    'nullable'             => false,
+                    'nullable'             => true,
                 ]]
             ));
             $metadata->mapManyToOne(array(
@@ -55,7 +55,7 @@ class LoadClassMetadataEvent implements EventSubscriber
                 'joinColumns'   => [[
                     'name'                 => 'deleted_by',
                     'referencedColumnName' => 'id',
-                    'nullable'             => false,
+                    'nullable'             => true,
                 ]]
             ));
         }
