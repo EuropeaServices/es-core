@@ -1,4 +1,5 @@
 <?php
+
 namespace Es\CoreBundle\Event\CRUD;
 
 use Doctrine\ORM\Events;
@@ -59,9 +60,12 @@ class EntityEvent implements EventSubscriber
     public function preUpdate(LifecycleEventArgs $args): void
     {
         $entity = $args->getObject();
+        $user = $this->security->getUser();
         if ($entity instanceof AbstractEntityInterface) {
             $entity->setUpdatedAt(new \DateTime());
-            $entity->setUpdatedBy($this->security->getUser());
+            if ($user) {
+                $entity->setUpdatedBy($user);
+            }
         }
     }
 
@@ -74,15 +78,17 @@ class EntityEvent implements EventSubscriber
      */
     public function prePersist(LifecycleEventArgs $args): void
     {
-        dump('LA');
         $entity = $args->getObject();
+        $user = $this->security->getUser();
         if ($entity instanceof AbstractEntityInterface) {
             $entity->setCreatedAt(new \DateTime());
-            $entity->setCreatedBy($this->security->getUser());
+            if ($user) {
+                $entity->setCreatedBy($user);
+            }
             $this->preUpdate($args);
         }
     }
-    
+
     /**
      * Met à jour la date et l'auteur de la suppression
      *
@@ -91,10 +97,12 @@ class EntityEvent implements EventSubscriber
     public function preRemove(LifecycleEventArgs $args): void
     {
         $entity = $args->getObject();
+        $user = $this->security->getUser();
         if ($entity instanceof AbstractEntityInterface) {
             $entity->setDeletedAt(new \DateTime());
-            $entity->setDeletedBy($this->security->getUser());
+            if ($user) {
+                $entity->setDeletedBy($user);
+            }
         }
     }
 }
-
