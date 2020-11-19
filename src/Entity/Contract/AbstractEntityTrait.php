@@ -141,7 +141,7 @@ trait AbstractEntityTrait
      *
      * @return UserInterface
      */
-    public function getCreatedBy(): UserInterface
+    public function getCreatedBy(): ?UserInterface
     {
         return $this->createdBy;
     }
@@ -163,7 +163,7 @@ trait AbstractEntityTrait
      *
      * @return UserInterface
      */
-    public function getUpdatedBy(): UserInterface
+    public function getUpdatedBy(): ?UserInterface
     {
         return $this->updatedBy;
     }

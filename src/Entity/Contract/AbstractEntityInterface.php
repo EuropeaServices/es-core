@@ -25,13 +25,13 @@ interface AbstractEntityInterface
 
     public function getDeletedAt(): ?\DateTime;
 
-    public function setCreatedBy(UserInterface $createdBy): void;
+    public function setCreatedBy(UserInterface $createdBy = null): void;
 
-    public function getCreatedBy(): UserInterface;
+    public function getCreatedBy(): ?UserInterface;
 
     public function setUpdatedBy(UserInterface $updatedBy = null): void;
 
-    public function getUpdatedBy(): UserInterface;
+    public function getUpdatedBy(): ?UserInterface;
 
     public function setDeletedBy(UserInterface $deletedBy = null): void;
 
