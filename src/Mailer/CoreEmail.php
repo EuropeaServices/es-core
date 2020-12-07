@@ -30,6 +30,10 @@ class CoreEmail extends Email
             return parent::to($this->mailToDev);
         }
 
+        if (is_array($addresses)){
+            return parent::to($addresses[0]);
+        }
+
         return parent::to($addresses);
     }
 
