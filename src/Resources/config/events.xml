@@ -8,6 +8,12 @@
             <tag name="doctrine.event_subscriber" />
         </service>
 
+         <service id="es_core.event.crud.user" class="Es\CoreBundle\Event\CRUD\UserEvent" public="true">
+            <argument type="service" id="es_core.mailer" />
+            <argument type="service" id="es_core.security.utils" />
+            <tag name="doctrine.event_subscriber" />
+        </service>
+
         <service id="es_core.event.doctrine.load_class_metadata" class="Es\CoreBundle\Event\Doctrine\LoadClassMetadataEvent" public="true">
             <tag name="doctrine.event_subscriber" />
         </service>
