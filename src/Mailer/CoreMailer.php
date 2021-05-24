@@ -37,6 +37,18 @@ class CoreMailer
         return $this->sendEmailMessage($rendered, (string) $user->getEmail());
     }
 
+    public function sendWarningPasswordExpired(UserInterface $user, \DateTime $passwordExpiredAt): self
+    {
+        $template = "@EsCore/security/changePassword/warningPasswordExpiredEmail.txt.twig";
+        $url = $this->urlGenerator->generate('es_core_change_password', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $rendered = $this->templating->render($template, array(
+            'user' => $user,
+            'passwordExpiredAt' => $passwordExpiredAt,
+            'urlChangePassword' => $url
+        ));
+        return $this->sendEmailMessage($rendered, (string) $user->getEmail());
+    }
+
     /**
      * @param string       $renderedTemplate
      * @param array|string $fromEmail

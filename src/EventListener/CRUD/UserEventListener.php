@@ -1,6 +1,6 @@
 <?php
 
-namespace Es\CoreBundle\Event\CRUD;
+namespace Es\CoreBundle\EventListener\CRUD;
 
 use Doctrine\ORM\Events;
 use Doctrine\Common\EventSubscriber;
@@ -9,7 +9,7 @@ use Es\CoreBundle\Security\SecurityUtils;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Es\CoreBundle\Entity\Security\UserInterface;
 
-class UserEvent implements EventSubscriber
+class UserEventListener implements EventSubscriber
 {
 
     /**

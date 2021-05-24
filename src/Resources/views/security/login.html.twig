@@ -5,9 +5,7 @@
 {% block body %}
 
 <div class="login-box">
-  <div class="login-logo">
-    <b>Es</b>Core
-  </div>
+  {{ block("login_logo")}}
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
@@ -53,10 +51,14 @@
       </form>
 
       <!-- /.social-auth-links -->
-
-      <p class="mb-1">
-        <a href="{{path('es_core_resetting_request')}}">{{'forget_password'|trans}}</a>
-      </p>
+      <div class="row mb-1 mt-2 align-items-start">
+        <div class="col-8">
+          <a href="{{path('es_core_resetting_request')}}">{{'forget_password'|trans}}</a>
+        </div>
+        <div class="col-4 justify-content-end">
+          {{ block("mini_logo")}}
+        </div>
+      </div>
     </div>
     <!-- /.login-card-body -->
   </div>

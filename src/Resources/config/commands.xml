@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="es_core.security.send_mail_warning_password_expired" class="Es\CoreBundle\Command\SendMailWarningPasswordExpiredCommand" public="true">
+            <argument type="service" id="es_core.mailer.utils" />
+            <tag name="console.command" command="escore:security:send_mail_warning_password_expired" />
+        </service>
+    </services>
+</container>

@@ -5,11 +5,13 @@ namespace Es\CoreBundle\Controller\Security;
 use Es\CoreBundle\Mailer\CoreMailer;
 use Symfony\Component\Form\FormFactory;
 use Doctrine\ORM\EntityManagerInterface;
+use Es\CoreBundle\Event\UserEvent;
 use Es\CoreBundle\Security\SecurityUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Es\CoreBundle\Form\Type\Security\ResettingType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -41,11 +43,20 @@ class ResettingController extends AbstractController
     private $formFactory;
 
     /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
      * Path of user class
      *
      * @var string
      */
     private $userClass;
+
+    private $minimalPasswordLength;
+
+    private $regexPattern;
 
     /**
      * Constructor
@@ -56,13 +67,24 @@ class ResettingController extends AbstractController
      * @param FormFactory $formFactory
      * @param string $userClass
      */
-    public function __construct(SecurityUtils $securityUtils, EntityManagerInterface $entityManager, CoreMailer $coreMailer, FormFactory $formFactory, string $userClass)
-    {
+    public function __construct(
+        SecurityUtils $securityUtils,
+        EntityManagerInterface $entityManager,
+        CoreMailer $coreMailer,
+        FormFactory $formFactory,
+        EventDispatcherInterface $eventDispatcher,
+        string $userClass,
+        int $minimalPasswordLength,
+        string $regexPattern
+    ) {
         $this->userClass = $userClass;
         $this->securityUtils = $securityUtils;
         $this->entityManager = $entityManager;
         $this->coreMailer = $coreMailer;
         $this->formFactory = $formFactory;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->minimalPasswordLength = $minimalPasswordLength;
+        $this->regexPattern = $regexPattern;
     }
 
     /**
@@ -130,14 +152,19 @@ class ResettingController extends AbstractController
         if (null === $user) {
             return new RedirectResponse($this->container->get('router')->generate('es_core_login'));
         }
-        $form = $this->formFactory->create(ResettingType::class);
-        $form->setData($user);
 
+        $optionsForm = array();
+        $optionsForm["minimal_password_length"] = $this->minimalPasswordLength;
+        $optionsForm["regex_pattern"] = $this->regexPattern;
+
+        $form = $this->formFactory->create(ResettingType::class, $user, $optionsForm);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $hashedPassword = $this->securityUtils->encodePassword($user);
             $user->setPassword($hashedPassword);
+            $userEvent = new UserEvent($user);
+            $this->eventDispatcher->dispatch($userEvent, UserEvent::PASSWORD_CHANGED);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $url = $this->generateUrl('home');

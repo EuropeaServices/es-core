@@ -1,23 +1,25 @@
-{% trans_default_domain 'EsCoreBundle' %} 
+{% trans_default_domain 'EsCoreBundle' %}
 {% extends ('@EsCore/layout.html.twig') %}
 
 {% block body %}
-<div class="login-box">
-  <div class="login-logo">
-    <b>Es</b>Core
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">{{'describe_forget_password_request_confirm'|trans|raw}}</p>
+	<div class="login-box">
+		{{ block("login_logo")}}
+		<!-- /.login-logo -->
+		<div class="card">
+			<div class="card-body login-card-body">
+				<p class="login-box-msg">{{'describe_forget_password_request_confirm'|trans|raw}}</p>
 
-      <p class="mt-3 mb-1">
-        <a href="{{path('es_core_login')}}">{{'return'|trans}}</a>
-      </p>
+				<div class="row mb-1 mt-2 align-items-start">
+					<div class="col-8">
+						<a href="{{path('es_core_login')}}">{{'return'|trans}}</a>
+					</div>
+					<div class="col-4 justify-content-end">
+						{{ block("mini_logo")}}
+					</div>
+				</div>
+			</div>
 
-    </div>
-    <!-- /.login-card-body -->
-  </div>
-</div>
-
-{% endblock %}
+		</div>
+		<!-- /.login-card-body -->
+	</div>
+</div>{% endblock %}

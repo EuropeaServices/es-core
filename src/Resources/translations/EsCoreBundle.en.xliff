@@ -4,96 +4,96 @@
         <body>
             <trans-unit id="username">
                 <source>username</source>
-                <target>Nom d'utilisateur</target>
+                <target>Username</target>
             </trans-unit>
            <trans-unit id="password">
                 <source>password</source>
-                <target>Mot de passe</target>
+                <target>Password</target>
             </trans-unit>
             <trans-unit id="remember_me">
                 <source>remember_me</source>
-                <target>Se souvenir de moi</target>
+                <target>Remember me</target>
             </trans-unit>
             <trans-unit id="sign_in">
                 <source>sign_in</source>
-                <target>Se connecter</target>
+                <target>Sign in</target>
             </trans-unit>
             <trans-unit id="forget_password">
                 <source>forget_password</source>
-                <target>Mot de passe oublié</target>
+                <target>Forget password</target>
             </trans-unit>
 
             <trans-unit id="username_or_email">
                 <source>username_or_email</source>
-                <target>Nom d'utilisateur ou email</target>
+                <target>Username or email</target>
             </trans-unit>
             <trans-unit id="return">
                 <source>return</source>
-                <target>Retour</target>
+                <target>Return</target>
             </trans-unit>
             <trans-unit id="request_new_password">
                 <source>request_new_password</source>
-                <target>Réinitialiser le mot de passe</target>
+                <target>Reset your password</target>
             </trans-unit>
             <trans-unit id="describe_forget_password">
                 <source>describe_forget_password</source>
-                <target>Un lien vous sera envoyé par mail afin de réinitialiser votre mot de passe</target>
+                <target>A link will be sent to you by email to reset your password</target>
             </trans-unit>
 
             <trans-unit id="describe_change_password">
                 <source>describe_change_password</source>
-                <target>Changement de votre mot de passe</target>
+                <target>Change your password</target>
             </trans-unit>
 
             <trans-unit id="describe_forget_password_request_confirm">
                 <source>describe_forget_password_request_confirm</source>
-                <target><![CDATA[Un e-mail a été envoyé. Il contient un lien sur lequel il vous faudra cliquer pour réinitialiser votre mot de passe.<br /><br />Remarque : Vous ne pouvez demander un nouveau mot de passe que toutes les 2 heures.<br /><br />Si vous ne recevez pas un email, vérifiez votre dossier spam ou essayez à nouveau.]]></target>
+                <target><![CDATA[An e-mail has been sent. It contains a link that you will need to click to reset your password.<br /><br />Note: You can only request a new password every 2 hours.<br /><br />If you do not receive an email, check your spam folder or try again.]]></target>
             </trans-unit>
 
             <trans-unit id="suject_resetting_mail">
                 <source>suject_resetting_mail</source>
-                <target>EsCore - Réinitialisation de votre mot de passe</target>
+                <target>EsCore - Reset your password</target>
             </trans-unit>
 
             <trans-unit id="body_resetting_mail">
                 <source>body_resetting_mail</source>
-                <target><![CDATA[Bonjour %lastname% %firstname% !</br></br>Pour réinitialiser votre mot de passe, merci de vous rendre à l'adresse suivante : %url% </br></br>Pour rappel, votre nom d'utilisateur est le suivant : <b>%username%</b></br></br>Cordialement,</br>]]></target>
+                <target><![CDATA[Hello %lastname% %firstname% !</br></br>To reset your password, please go to the following address : %url% </br></br>To remember, your username is : <b>%username%</b></br></br>Best regards,</br>]]></target>
             </trans-unit>
 
             <trans-unit id="form_resetting_new_password">
                 <source>form_resetting_new_password</source>
-                <target>Nouveau mot de passe</target>
+                <target>New password</target>
             </trans-unit>
             <trans-unit id="form_resetting_new_password_confirm">
                 <source>form_resetting_new_password_confirm</source>
-                <target>Répétez le nouveau mot de passe</target>
+                <target>Repeat the new password</target>
             </trans-unit>
             <trans-unit id="form_resetting_error">
                 <source>form_resetting_error</source>
-                <target>Les mot de passes doivent être identiques</target>
+                <target>Passwords must be identical</target>
             </trans-unit>
             <trans-unit id="form_current_password_label">
                 <source>form_current_password_label</source>
-                <target>Ancien mot de passe</target>
+                <target>Older password</target>
             </trans-unit>
             <trans-unit id="change_password">
                 <source>change_password</source>
-                <target>Changer le mot de passe</target>
+                <target>Change the password</target>
             </trans-unit>
 
             <trans-unit id="must_change_password">
                 <source>must_change_password</source>
-                <target>Votre mot de passe a expiré, vous devez le changer</target>
+                <target>Your password has expired, you must change it</target>
             </trans-unit>
 
             <trans-unit id="suject_warning_pasword_expired_mail">
                 <source>suject_warning_pasword_expired_mail</source>
-                <target>EsCore - Votre mot de passe arrive bientôt à expiration</target>
+                <target>EsCore - Your password will be expired</target>
             </trans-unit>
 
             <trans-unit id="body_warning_pasword_expired_mail">
                 <source>body_warning_pasword_expired_mail</source>
-                <target><![CDATA[Bonjour %lastname% %firstname% !</br></br>Votre mot de passe sur EsCore expire le %passwordExpiredAt%, rendez-vous sur %urlChangePassword% pour changer votre mot de passe.</br></br>Cordialement ]]></target>
+                <target><![CDATA[Hello %lastname% %firstname% !</br></br>Your password on EsCore will expire at %passwordExpiredAt%, go to %urlChangePassword% to change your password.</br></br>Best regards </br></br>]]></target>
             </trans-unit>
         </body>
     </file>

@@ -1,10 +1,10 @@
 <?php
 
-namespace Es\CoreBundle\Event\CRUD;
+namespace Es\CoreBundle\EventListener\CRUD;
 
 use Doctrine\ORM\Events;
 use Doctrine\Common\EventSubscriber;
-use  Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\Security\Core\Security;
 use Es\CoreBundle\Entity\Contract\AbstractEntityInterface;
 
@@ -17,7 +17,7 @@ use Es\CoreBundle\Entity\Contract\AbstractEntityInterface;
  * @since 15/10/2019
  * @author hroux
  */
-class EntityEvent implements EventSubscriber
+class EntityEventListener implements EventSubscriber
 {
 
     /**

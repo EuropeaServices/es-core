@@ -62,7 +62,6 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface
     protected $email;
 
     /**
-     * @Assert\NotBlank()
      * @Assert\Length(max=250)
      */
     protected $plainPassword;
@@ -84,6 +83,16 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface
      * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
      */
     protected $passwordRequestedAt;
+
+    /**
+     * @ORM\Column(name="password_changed_at", type="datetime", nullable=true)
+     */
+    protected $passwordChangedAt;
+
+    /**
+     * @ORM\Column(name="mail_warning_expiration_password_at", type="datetime", nullable=true)
+     */
+    protected $mailWarningExpirationPasswordAt;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
@@ -326,5 +335,45 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface
     public function __toString()
     {
         return $this->username;
+    }
+
+    /**
+     * Get the value of passwordChangedAt
+     */
+    public function getPasswordChangedAt(): ?\DateTime
+    {
+        return $this->passwordChangedAt;
+    }
+
+    /**
+     * Set the value of passwordChangedAt
+     *
+     * @return  self
+     */
+    public function setPasswordChangedAt(?\DateTime $passwordChangedAt): self
+    {
+        $this->passwordChangedAt = $passwordChangedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of mailWarningExpirationPasswordAt
+     */
+    public function getMailWarningExpirationPasswordAt(): ?\DateTime
+    {
+        return $this->mailWarningExpirationPasswordAt;
+    }
+
+    /**
+     * Set the value of mailWarningExpirationPasswordAt
+     *
+     * @return  self
+     */
+    public function setMailWarningExpirationPasswordAt(?\DateTime $mailWarningExpirationPasswordAt): self
+    {
+        $this->mailWarningExpirationPasswordAt = $mailWarningExpirationPasswordAt;
+
+        return $this;
     }
 }

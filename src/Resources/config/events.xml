@@ -3,19 +3,27 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="es_core.event.crud.entity" class="Es\CoreBundle\Event\CRUD\EntityEvent" public="true">
+        <service id="es_core.event_listener.crud.entity" class="Es\CoreBundle\EventListener\CRUD\EntityEventListener" public="true">
             <argument type="service" id="security.helper" />
             <tag name="doctrine.event_subscriber" />
         </service>
 
-         <service id="es_core.event.crud.user" class="Es\CoreBundle\Event\CRUD\UserEvent" public="true">
+         <service id="es_core.event_listener.crud.user" class="Es\CoreBundle\EventListener\CRUD\UserEventListener" public="true">
             <argument type="service" id="es_core.mailer" />
             <argument type="service" id="es_core.security.utils" />
             <tag name="doctrine.event_subscriber" />
         </service>
 
-        <service id="es_core.event.doctrine.load_class_metadata" class="Es\CoreBundle\Event\Doctrine\LoadClassMetadataEvent" public="true">
+        <service id="es_core.event_listener.doctrine.load_class_metadata" class="Es\CoreBundle\EventListener\Doctrine\LoadClassMetadataEventListener" public="true">
             <tag name="doctrine.event_subscriber" />
+        </service>
+
+
+
+        <service id="es_core.event_listener.security.change_password" class="Es\CoreBundle\EventListener\Security\ChangePasswordEventListener" public="true">
+            <argument type="service" id="security.helper" />
+            <argument type="service" id="router.default" />
+            <tag name="kernel.event_subscriber" />
         </service>
     </services>
 </container>

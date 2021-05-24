@@ -1,12 +1,12 @@
 <?php
 
-namespace Es\CoreBundle\Event\Doctrine;
+namespace Es\CoreBundle\EventListener\Doctrine;
 
 use Doctrine\ORM\Events;
 use Doctrine\Common\EventSubscriber;
 use Es\CoreBundle\Entity\Contract\AbstractEntityInterface;
 
-class LoadClassMetadataEvent implements EventSubscriber
+class LoadClassMetadataEventListener implements EventSubscriber
 {
     /**
      *

@@ -1,13 +1,13 @@
 {% trans_default_domain 'EsCoreBundle' %}
 {% block subject %}
 {%- autoescape false -%}
-{{"suject_resetting_mail" | trans }}
+{{ 'suject_resetting_mail'|trans({'%username%': user.username}) }}
 {%- endautoescape -%}
 {% endblock %}
 
 {% block body_text %}
 {% autoescape false %}
-{{"body_resetting_mail" | trans({'%firstname%': user.firstname, '%lastname%': user.lastname, '%url%':confirmationUrl})}}
+{{ 'body_resetting_mail'|trans({'%firstname%': user.firstname, '%lastname%': user.lastname, '%username%': user.username, '%url%': confirmationUrl}) }}
 {% endautoescape %}
 {% endblock %}
 {% block body_html %}{% endblock %}

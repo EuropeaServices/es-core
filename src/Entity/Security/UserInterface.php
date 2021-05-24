@@ -27,4 +27,24 @@ interface UserInterface extends SymfonyUserInterface
      * @return string|null
      */
     public function getPlainPassword(): ?string;
+
+    /**
+     * @return null|\DateTime
+     */ 
+    public function getPasswordChangedAt():?\DateTime;
+
+    /**
+     * @return  self
+     */ 
+    public function setPasswordChangedAt(?\DateTime $passwordChangedAt):self;
+
+    /**
+     * @return null|\DateTime
+     */ 
+    public function getMailWarningExpirationPasswordAt():?\DateTime;
+
+    /**
+     * @return  self
+     */ 
+    public function setMailWarningExpirationPasswordAt(?\DateTime $mailWarningExpirationPasswordAt):self;
 }

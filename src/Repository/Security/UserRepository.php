@@ -24,4 +24,20 @@ class UserRepository extends ServiceEntityRepository
 
         return $this->findOneBy(["username"  => $usernameOrEmail]);
     }
+
+    public function findUserToSendWarningPasswordExpired(
+        string $numberPasswordExpired, 
+        string $unityDatePasswordExpired,
+        string $numberWarningMail, 
+        string $unityDateWarningMail)
+    {
+        $sqlPasswordExpired = "DATE_ADD(su.passwordChangedAt, ".$numberPasswordExpired.",'".strtolower($unityDatePasswordExpired)."')";
+        $sqlPasswordExpired = "DATE_SUB(".$sqlPasswordExpired.",  ".$numberWarningMail.",'".strtolower($unityDateWarningMail)."')";
+        $qb = $this->createQueryBuilder('su')
+        ->andWhere("su.passwordChangedAt IS NOT NULL")
+        ->andWhere("(su.mailWarningExpirationPasswordAt < su.passwordChangedAt OR su.mailWarningExpirationPasswordAt IS NULL)")
+        ->andWhere($sqlPasswordExpired." < CURRENT_DATE()");
+
+        return $qb->getQuery()->getResult();
+    }
 }

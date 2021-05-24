@@ -28,5 +28,11 @@
             <argument type="service" id="router.default" />
         </service>
         <service id="Es\CoreBundle\Mailer\CoreMailer" alias="es_core.mailer" public="true" />
+
+        <service id="es_core.mailer.utils" class="Es\CoreBundle\Mailer\MailerUtils" public="true">
+            <argument type="service" id="es_core.mailer" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+        <service id="Es\CoreBundle\Mailer\MailerUtils" alias="es_core.mailer.utils" public="true" />
     </services>
 </container>

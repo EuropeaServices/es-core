@@ -17,6 +17,7 @@ class EsCoreExtension extends Extension
         $loader->load('repositories.xml');
         $loader->load('controllers.xml');
         $loader->load('events.xml');
+        $loader->load('commands.xml');
 
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
@@ -32,10 +33,29 @@ class EsCoreExtension extends Extension
         $definition->setArgument(4, $config["user_class"]);
 
         $definition = $container->getDefinition('es_core.controller.security.resetting_controller');
-        $definition->setArgument(4, $config["user_class"]);
+        $definition->setArgument(5, $config["user_class"]);
+        $definition->setArgument(6, $config["password_validation"]["minimal_length"]);
+        $definition->setArgument(7, $config["password_validation"]["regex_validation"]);
 
-        $definition = $container->getDefinition('es_core.event.doctrine.load_class_metadata');
+        $definition = $container->getDefinition('es_core.controller.security.change_password_controller');
+        $definition->setArgument(4, $config["password_validation"]["minimal_length"]);
+        $definition->setArgument(5, $config["password_validation"]["regex_validation"]);
+
+        $definition = $container->getDefinition('es_core.event_listener.doctrine.load_class_metadata');
         $definition->setArgument(0, $config["user_class"]);
+
+        $definition = $container->getDefinition('es_core.event_listener.security.change_password');
+        $definition->setArgument(2, $config["password_expiration"]["number"]);
+        $definition->setArgument(3, $config["password_expiration"]["unity"]);
+        $definition->setArgument(4, $config["password_expiration"]["route_name_change_password"]);
+
+        $definition = $container->getDefinition('es_core.mailer.utils');
+        $definition->setArgument(2, $config["user_class"]);
+        $definition->setArgument(3, $config["password_expiration"]["number"]);
+        $definition->setArgument(4, $config["password_expiration"]["unity"]);
+        $definition->setArgument(5, $config["send_mail_warning_password_expired"]["number"]);
+        $definition->setArgument(6, $config["send_mail_warning_password_expired"]["unity"]);
+        
 
         /*$container->registerForAutoconfiguration(UserRepository::class)
             ->addTag('doctrine.repository_service');*/

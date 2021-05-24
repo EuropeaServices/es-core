@@ -4,15 +4,15 @@
         <body>
             <trans-unit id="form_resetting_error">
                 <source>form_resetting_error</source>
-                <target>Passwords must identicals</target>
+                <target>Les mot de passes doivent être identiques</target>
             </trans-unit>
             <trans-unit id="form_failed_regex_password">
                 <source>form_failed_regex_password</source>
-                <target><![CDATA[The password must contain at last one number, a lowercase, an uppercase and a special character (@$!*?-()_<>./:&§;,$#£|€+=°)]]></target>
+                <target><![CDATA[Erreur, le mot de passe doit contenir au moins un chiffre, une minuscule, une majuscule et un caractère spécial (@$!*?-()_<>./:&§;,$#£|€+=°)]]></target>
             </trans-unit>
             <trans-unit id="form_current_passwordinvalid">
                 <source>form_current_passwordinvalid</source>
-                <target>Older password is wrong</target>
+                <target>L'ancien mot de passe est incorrect</target>
             </trans-unit>
         </body>
     </file>
