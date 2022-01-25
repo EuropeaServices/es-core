@@ -95,6 +95,16 @@
                 <source>body_warning_pasword_expired_mail</source>
                 <target><![CDATA[Hello %lastname% %firstname% !</br></br>Your password on EsCore will expire at %passwordExpiredAt%, go to %urlChangePassword% to change your password.</br></br>Best regards </br></br>]]></target>
             </trans-unit>
+
+            <trans-unit id="title">
+                <source>title</source>
+                <target>EsCore</target>
+            </trans-unit>
+            <trans-unit id="long_title">
+                <source>long_title</source>
+                <target>Core Europea Services</target>
+            </trans-unit>
+            
         </body>
     </file>
 </xliff>

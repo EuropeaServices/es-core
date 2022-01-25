@@ -91,6 +91,16 @@
                 <target>EsCore - Votre mot de passe arrive bientôt à expiration</target>
             </trans-unit>
 
+            <trans-unit id="title">
+                <source>title</source>
+                <target>EsCore</target>
+            </trans-unit>
+
+            <trans-unit id="long_title">
+                <source>long_title</source>
+                <target>Core Europea Services</target>
+            </trans-unit>
+
             <trans-unit id="body_warning_pasword_expired_mail">
                 <source>body_warning_pasword_expired_mail</source>
                 <target><![CDATA[Bonjour %lastname% %firstname% !</br></br>Votre mot de passe sur EsCore expire le %passwordExpiredAt%, rendez-vous sur %urlChangePassword% pour changer votre mot de passe.</br></br>Cordialement ]]></target>

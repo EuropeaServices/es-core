@@ -376,4 +376,6 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface
 
         return $this;
     }
+
+
 }
