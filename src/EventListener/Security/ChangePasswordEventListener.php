@@ -35,12 +35,12 @@ class ChangePasswordEventListener implements EventSubscriberInterface
      */
     private string $number;
 
-        /**
+    /**
      * @var string
      */
     private string $unity;
 
-        /**
+    /**
      * @var string
      */
     private string $routeNameChangePassword;
@@ -55,12 +55,12 @@ class ChangePasswordEventListener implements EventSubscriberInterface
      * @param string $routeNameChangePassword
      */
     public function __construct(
-        Security $security, 
-        UrlGeneratorInterface $urlGenerator, 
-        string $number, 
-        string $unity, 
-        string $routeNameChangePassword)
-    {
+        Security $security,
+        UrlGeneratorInterface $urlGenerator,
+        string $number,
+        string $unity,
+        string $routeNameChangePassword
+    ) {
         $this->security = $security;
         $this->urlGenerator = $urlGenerator;
         $this->number = $number;
@@ -68,7 +68,7 @@ class ChangePasswordEventListener implements EventSubscriberInterface
         $this->routeNameChangePassword = $routeNameChangePassword;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             UserEvent::PASSWORD_CHANGED => "onPasswordChanged",
@@ -95,7 +95,7 @@ class ChangePasswordEventListener implements EventSubscriberInterface
             //test exipired password user
             $passwordExpiredAt = clone $user->getPasswordChangedAt();
             $passwordExpiredAt->modify("+" . $this->number . " " . $this->unity);
-            if ($passwordExpiredAt <= new \DateTime()){
+            if ($passwordExpiredAt <= new \DateTime()) {
                 $url = $this->urlGenerator->generate($this->routeNameChangePassword, ["mustChange" => 1]);
                 $requestEvent->setResponse(new RedirectResponse($url));
             }

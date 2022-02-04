@@ -157,4 +157,13 @@ class Group implements GroupInterface, AbstractEntityInterface
     {
         return (string)$this->getName();
     }
+    
+    public function getFieldsList(): array
+    {
+        return [
+            'name',
+            'roles',
+            'users',
+        ];
+    }
 }

@@ -21,7 +21,7 @@ interface UserInterface extends SymfonyUserInterface
     /**
      * @return null|\DateTime
      */
-    public function getPasswordRequestedAt();
+    public function getPasswordRequestedAt():?\DateTime;
 
     /**
      * @return string|null

@@ -54,7 +54,7 @@ class CoreMailer
      * @param array|string $fromEmail
      * @param array|string $toEmail
      */
-    protected function sendEmailMessage($renderedTemplate, $toEmail): self
+    public function sendEmailMessage($renderedTemplate, $toEmail): self
     {
         // Render the email, use the first line as the subject, and the rest as the body
         $renderedLines = explode("\n", trim($renderedTemplate));

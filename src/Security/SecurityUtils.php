@@ -3,7 +3,7 @@
 namespace Es\CoreBundle\Security;
 
 use Es\CoreBundle\Entity\Security\UserInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory;
 
 /**
  * Utils of the security parts
@@ -21,17 +21,17 @@ class SecurityUtils
     private $retryTtl;
 
     /**
-     * @var EncoderFactoryInterface
+     * @var PasswordHasherFactory
      */
     private $encoderFactory;
 
     /**
      * The constructor
      *
-     * @param EncoderFactoryInterface $encoderFactory
+     * @param PasswordHasherFactory $encoderFactory
      * @param integer $retryTtl
      */
-    public function __construct(EncoderFactoryInterface $encoderFactory, int $retryTtl)
+    public function __construct(PasswordHasherFactory $encoderFactory, int $retryTtl)
     {
         $this->retryTtl = $retryTtl;
         $this->encoderFactory = $encoderFactory;

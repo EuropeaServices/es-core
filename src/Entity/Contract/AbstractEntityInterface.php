@@ -38,4 +38,6 @@ interface AbstractEntityInterface
     public function getDeletedBy(): ?UserInterface;
     
     public function getField(string $field);
+
+    public function getFieldsList(): array;
 }

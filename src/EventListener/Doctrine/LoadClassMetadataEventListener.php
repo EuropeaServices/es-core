@@ -18,14 +18,14 @@ class LoadClassMetadataEventListener implements EventSubscriber
     {
         $this->userPath = $userPath;
     }
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::loadClassMetadata,
         ];
     }
 
-    public function loadClassMetadata(\Doctrine\ORM\Event\LoadClassMetadataEventArgs $eventArgs)
+    public function loadClassMetadata(\Doctrine\ORM\Event\LoadClassMetadataEventArgs $eventArgs): void
     {
         $metadata = $eventArgs->getClassMetadata();
         $class = new \ReflectionClass($metadata->getName());

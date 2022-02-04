@@ -9,15 +9,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Es\CoreBundle\Entity\Security\Group;
 use Es\CoreBundle\Entity\Security\GroupInterface;
 use Es\CoreBundle\Entity\Security\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @UniqueEntity(fields="email")
  * @ORM\MappedSuperclass(repositoryClass="Es\CoreBundle\Repository\Security\UserRepository")
  */
-class User   implements UserInterface, \Serializable, AbstractEntityInterface
+class User   implements UserInterface, \Serializable, AbstractEntityInterface, PasswordAuthenticatedUserInterface
 {
 
     use AbstractEntityTrait;
@@ -125,29 +125,24 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface
         $this->groups = new ArrayCollection();
     }
 
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
 
-    public function getSalt()
-    {
-        // you *may* need a real salt depending on your encoder
-        // see section on salt below
-        return null;
-    }
-
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    function setPassword($password)
+    function setPassword(?string $password): self
     {
         $this->password = $password;
+
+        return $this;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
         $roles = $this->roles;
         foreach ($this->getGroups() as $group) {
@@ -158,9 +153,11 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface
         return $roles;
     }
 
-    function addRole($role)
+    function addRole(string $role): self
     {
         $this->roles[] = $role;
+
+        return $this;
     }
 
     /**
@@ -169,6 +166,11 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface
     public function getGroups(): Collection
     {
         return $this->groups;
+    }
+
+    public function getSalt(): ?string
+    {
+        return null;
     }
 
     public function addGroup(GroupInterface $group): self
@@ -228,9 +230,7 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface
             $this->email,
             $this->password,
             $this->isActive,
-            $this->groups
-            // see section on salt below
-            // $this->salt,
+            $this->groups,
         ));
     }
 
@@ -245,18 +245,16 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface
             $this->email,
             $this->password,
             $this->isActive,
-            $this->groups
-            // see section on salt below
-            // $this->salt
+            $this->groups,
         ) = unserialize($serialized);
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -266,40 +264,50 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface
         return $this->plainPassword;
     }
 
-    public function getIsActive()
+    public function getIsActive(): bool
     {
         return $this->isActive;
     }
 
-    public function setId($id)
+    public function setId(int $id): self
     {
         $this->id = $id;
+
+        return $this;
     }
 
-    public function setEmail($email)
+    public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
     }
 
-    public function setUsername($username)
+    public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
     }
 
-    public function setPlainPassword($plainPassword)
+    public function setPlainPassword(?string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
     }
 
-    public function setIsActive($isActive)
+    public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getConfirmationToken()
+    public function getConfirmationToken(): ?\DateTime
     {
         return $this->confirmationToken;
     }
@@ -307,7 +315,7 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface
     /**
      * {@inheritdoc}
      */
-    public function setConfirmationToken($confirmationToken)
+    public function setConfirmationToken(?\DateTime $confirmationToken): self
     {
         $this->confirmationToken = $confirmationToken;
 
@@ -317,7 +325,7 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface
     /**
      * {@inheritdoc}
      */
-    public function setPasswordRequestedAt(\DateTime $date = null)
+    public function setPasswordRequestedAt(\DateTime $date = null): self
     {
         $this->passwordRequestedAt = $date;
 
@@ -327,12 +335,12 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface
     /**
      * @return null|\DateTime
      */
-    public function getPasswordRequestedAt()
+    public function getPasswordRequestedAt(): ?\DateTime
     {
         return $this->passwordRequestedAt;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->username;
     }
@@ -377,5 +385,19 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface
         return $this;
     }
 
+    public function getUserIdentifier(): string
+    {
+        return $this->username;
+    }
 
+    public function getFieldsList(): array
+    {
+        return [
+            'lastname',
+            'firstname',
+            'email', 
+            'username',
+            'groups',
+        ];
+    }
 }

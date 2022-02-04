@@ -74,7 +74,7 @@ class EsCoreExtension extends Extension
         $config->setMetadataDriverImpl($driver);*/
     }
 
-    public function getAlias()
+    public function getAlias():string
     {
         return 'es_core';
     }

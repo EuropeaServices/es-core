@@ -7,12 +7,12 @@
             <argument type="service" id="router.default" />
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="security.csrf.token_manager" />
-            <argument type="service" id="security.user_password_encoder.generic" />
+            <argument type="service" id="security.user_password_hasher" />
         </service>
         <service id="Es\CoreBundle\Security\LoginFormAuthenticator" alias="es_core.login_form_authenticator" public="true" />
 
         <service id="es_core.security.utils" class="Es\CoreBundle\Security\SecurityUtils" public="true">
-            <argument type="service" id="security.encoder_factory.generic" />
+            <argument type="service" id="security.password_hasher_factory" />
         </service>
         <service id="Es\CoreBundle\Security\SecurityUtils" alias="es_core.security.utils" public="true" />
         

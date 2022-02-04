@@ -43,7 +43,7 @@ class UserEventListener implements EventSubscriber
      * {@inheritdoc}
      * @see \Doctrine\Common\EventSubscriber::getSubscribedEvents()
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::postPersist,
