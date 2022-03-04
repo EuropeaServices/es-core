@@ -10,20 +10,13 @@ use Twig\Environment;
 
 class CoreMailer
 {
-    private $mailer;
 
-    private $email;
-
-    private $templating;
-
-    private $urlGenerator;
-
-    public function __construct(MailerInterface $mailer, CoreEmail $email, Environment $templating, UrlGeneratorInterface $urlGenerator)
-    {
-        $this->mailer = $mailer;
-        $this->email = $email;
-        $this->templating = $templating;
-        $this->urlGenerator = $urlGenerator;
+    public function __construct(
+        private MailerInterface $mailer,
+        private CoreEmail $email,
+        private Environment $templating,
+        private UrlGeneratorInterface $urlGenerator
+    ) {
     }
 
     public function sendResettingMail(UserInterface $user): self

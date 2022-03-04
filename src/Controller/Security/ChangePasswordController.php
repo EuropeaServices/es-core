@@ -19,48 +19,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class ChangePasswordController extends AbstractController
 {
-    /**
-     * @var SecurityUtils
-     */
-    private $securityUtils;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * @var FormFactory
-     */
-    private $formFactory;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
-    private $minimalPasswordLength;
-
-    private $regexPattern;
 
     /**
      * Constructor
      *
      */
     public function __construct(
-        SecurityUtils $securityUtils,
-        EntityManagerInterface $entityManager,
-        FormFactory $formFactory,
-        EventDispatcherInterface $eventDispatcher,
-        int $minimalPasswordLength,
-        string $regexPattern
+        private SecurityUtils $securityUtils,
+        private EntityManagerInterface $entityManager,
+        private FormFactory $formFactory,
+        private EventDispatcherInterface $eventDispatcher,
+        private int $minimalPasswordLength,
+        private string $regexPattern
     ) {
-        $this->securityUtils = $securityUtils;
-        $this->entityManager = $entityManager;
-        $this->formFactory = $formFactory;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->minimalPasswordLength = $minimalPasswordLength;
-        $this->regexPattern = $regexPattern;
     }
     /**
      * If not connected, return to home
@@ -68,7 +39,7 @@ class ChangePasswordController extends AbstractController
      *
      * @return Response|RedirectResponse
      */
-    public function changePassword(Request $request, ?int $mustChange=0)
+    public function changePassword(Request $request, ?int $mustChange = 0): Response|RedirectResponse
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('home');

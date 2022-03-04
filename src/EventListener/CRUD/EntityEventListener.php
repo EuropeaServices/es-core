@@ -19,22 +19,13 @@ use Es\CoreBundle\Entity\Contract\AbstractEntityInterface;
  */
 class EntityEventListener implements EventSubscriber
 {
-
-    /**
-     * Service Security permettant l'authentification
-     *
-     * @var Security
-     */
-    private $security;
-
     /**
      * Constructeur
      *
      * @param Security $security
      */
-    public function __construct(Security $security)
+    public function __construct(private Security $security)
     {
-        $this->security = $security;
     }
 
     /**

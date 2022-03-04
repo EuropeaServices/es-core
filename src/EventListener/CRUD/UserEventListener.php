@@ -13,25 +13,13 @@ class UserEventListener implements EventSubscriber
 {
 
     /**
-     * Service d'envoi de mail
-     *
-     * @var CoreMailer
-     */
-    private $coreMailer;
-
-    /**
-     * Service Security utils
-     *
-     * @var SecurityUtils
-     */
-    private $securityUtils;
-
-    /**
      * Constructeur
      *
      * @param CoreMailer $coreMailer
      */
-    public function __construct(CoreMailer $coreMailer, SecurityUtils $securityUtils)
+    public function __construct(
+        private CoreMailer $coreMailer, 
+        private SecurityUtils $securityUtils)
     {
         $this->coreMailer = $coreMailer;
         $this->securityUtils = $securityUtils;

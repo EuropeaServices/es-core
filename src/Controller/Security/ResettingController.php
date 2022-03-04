@@ -21,43 +21,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class ResettingController extends AbstractController
 {
-
-    /**
-     * @var SecurityUtils
-     */
-    private $securityUtils;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * @var CoreMailer
-     */
-    private $coreMailer;
-
-    /**
-     * @var FormFactory
-     */
-    private $formFactory;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
-    /**
-     * Path of user class
-     *
-     * @var string
-     */
-    private $userClass;
-
-    private $minimalPasswordLength;
-
-    private $regexPattern;
-
     /**
      * Constructor
      *
@@ -68,23 +31,15 @@ class ResettingController extends AbstractController
      * @param string $userClass
      */
     public function __construct(
-        SecurityUtils $securityUtils,
-        EntityManagerInterface $entityManager,
-        CoreMailer $coreMailer,
-        FormFactory $formFactory,
-        EventDispatcherInterface $eventDispatcher,
-        string $userClass,
-        int $minimalPasswordLength,
-        string $regexPattern
+        private SecurityUtils $securityUtils,
+        private EntityManagerInterface $entityManager,
+        private CoreMailer $coreMailer,
+        private FormFactory $formFactory,
+        private EventDispatcherInterface $eventDispatcher,
+        private string $userClass,
+        private int $minimalPasswordLength,
+        private string $regexPattern
     ) {
-        $this->userClass = $userClass;
-        $this->securityUtils = $securityUtils;
-        $this->entityManager = $entityManager;
-        $this->coreMailer = $coreMailer;
-        $this->formFactory = $formFactory;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->minimalPasswordLength = $minimalPasswordLength;
-        $this->regexPattern = $regexPattern;
     }
 
     /**
@@ -93,7 +48,7 @@ class ResettingController extends AbstractController
      *
      * @return Response|RedirectResponse
      */
-    public function resettingRequest()
+    public function resettingRequest(): Response|RedirectResponse
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('home');
@@ -109,7 +64,7 @@ class ResettingController extends AbstractController
      * @param Request $request
      * @return RedirectResponse
      */
-    public function sendEmailAction(Request $request)
+    public function sendEmailAction(Request $request): Response|RedirectResponse
     {
         $username = $request->request->get('username');
 
@@ -132,7 +87,7 @@ class ResettingController extends AbstractController
      *
      * @return Response
      */
-    public function confirmSendEmailAction()
+    public function confirmSendEmailAction(): Response
     {
         return $this->render('@EsCore/security/resetting/resettingRequestConfirm.html.twig', []);
     }
@@ -145,7 +100,7 @@ class ResettingController extends AbstractController
      * @param string $token
      * @return Response|RedirectResponse
      */
-    public function resetPassword(Request $request, $token)
+    public function resetPassword(Request $request, $token): Response|RedirectResponse
     {
         $user = $this->entityManager->getRepository($this->userClass)->findOneBy(["confirmationToken" =>  $token]);
 

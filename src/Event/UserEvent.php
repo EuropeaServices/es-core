@@ -17,11 +17,8 @@ class UserEvent extends Event
      */
     public const PASSWORD_CHANGED = 'es_core.password_changed';
 
-    protected $user;
-
-    public function __construct(UserInterface $user)
+    public function __construct(private UserInterface $user)
     {
-        $this->user = $user;
     }
 
     public function getUser(): UserInterface

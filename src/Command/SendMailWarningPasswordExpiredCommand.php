@@ -17,10 +17,9 @@ class SendMailWarningPasswordExpiredCommand extends Command
     // the name of the command (the part after "bin/console")
     protected static $defaultName = 'escore:security:send_mail_warning_password_expired';
 
-    public function __construct(MailerUtils $mailerUtils)
+    public function __construct(private MailerUtils $mailerUtils)
     {
         parent::__construct();
-        $this->mailerUtils = $mailerUtils;
     }
 
     protected function configure(): void

@@ -12,7 +12,7 @@ class CoreEmailTest extends TestCase
     /**
      * @var string
      */
-    private string $mailTodev;
+    private string $mailToDev;
 
     /**
      * @var string

@@ -27,33 +27,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     public const LOGIN_ROUTE = 'es_core_login';
 
     /**
-     * The path of user class
-     *
-     * @var string
-     */
-    private $userClass;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
-
-    /**
-     * @var CsrfTokenManagerInterface
-     */
-    private $csrfTokenManager;
-
-    /**
-     * @var UserPasswordHasherInterface
-     */
-    private $passwordEncoder;
-
-    /**
      * The constructor
      *
      * @param UrlGeneratorInterface $urlGenerator
@@ -63,17 +36,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      * @param string $userClass
      */
     public function __construct(
-        UrlGeneratorInterface $urlGenerator,
-        EntityManagerInterface $entityManager,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        UserPasswordHasherInterface $passwordEncoder,
-        string $userClass
+        private UrlGeneratorInterface $urlGenerator,
+        private EntityManagerInterface $entityManager,
+        private CsrfTokenManagerInterface $csrfTokenManager,
+        private UserPasswordHasherInterface $passwordEncoder,
+        private string $userClass
     ) {
-        $this->userClass = $userClass;
-        $this->entityManager = $entityManager;
-        $this->urlGenerator = $urlGenerator;
-        $this->csrfTokenManager = $csrfTokenManager;
-        $this->passwordEncoder = $passwordEncoder;
     }
 
     /**

@@ -2,9 +2,10 @@
 
 namespace Es\CoreBundle\Entity\Security;
 
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
-interface UserInterface extends SymfonyUserInterface
+interface UserInterface extends SymfonyUserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @param GroupInterface $group
@@ -27,6 +28,11 @@ interface UserInterface extends SymfonyUserInterface
      * @return string|null
      */
     public function getPlainPassword(): ?string;
+
+        /**
+     * @return string|null
+     */
+    public function getPassword(): ?string;
 
     /**
      * @return null|\DateTime

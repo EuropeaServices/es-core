@@ -6,39 +6,18 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class MailerUtils
 {
-    private $coreMailer;
-
-    private $entityManager;
-
-    private $userClass;
-
-    private $numberPasswordExpired;
-
-    private $unityDatePasswordExpired;
-
-    private $numberWarningMail;
-
-    private $unityDateWarningMail;
-
     public function __construct(
-        CoreMailer $coreMailer,
-        EntityManagerInterface $entityManager,
-        string $userClass,
-        string $numberPasswordExpired,
-        string $unityDatePasswordExpired,
-        string $numberWarningMail,
-        string $unityDateWarningMail
+        private CoreMailer $coreMailer,
+        private EntityManagerInterface $entityManager,
+        private string $userClass,
+        private string $numberPasswordExpired,
+        private string $unityDatePasswordExpired,
+        private string $numberWarningMail,
+        private string $unityDateWarningMail
     ) {
-        $this->coreMailer = $coreMailer;
-        $this->entityManager = $entityManager;
-        $this->userClass = $userClass;
-        $this->numberPasswordExpired = $numberPasswordExpired;
-        $this->unityDatePasswordExpired = $unityDatePasswordExpired;
-        $this->numberWarningMail = $numberWarningMail;
-        $this->unityDateWarningMail = $unityDateWarningMail;
     }
 
-    public function sendMailWarningPasswordExpired()
+    public function sendMailWarningPasswordExpired(): void
     {
         $users = $this->entityManager
             ->getRepository($this->userClass)

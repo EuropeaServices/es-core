@@ -4,6 +4,7 @@ namespace Es\CoreBundle\Security;
 
 use Es\CoreBundle\Entity\Security\UserInterface;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * Utils of the security parts
@@ -14,27 +15,15 @@ use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory;
 class SecurityUtils
 {
     /**
-     * TTL in second after a resend an request of resetting password
-     *
-     * @var int
-     */
-    private $retryTtl;
-
-    /**
-     * @var PasswordHasherFactory
-     */
-    private $encoderFactory;
-
-    /**
      * The constructor
      *
      * @param PasswordHasherFactory $encoderFactory
      * @param integer $retryTtl
      */
-    public function __construct(PasswordHasherFactory $encoderFactory, int $retryTtl)
-    {
-        $this->retryTtl = $retryTtl;
-        $this->encoderFactory = $encoderFactory;
+    public function __construct(
+        private PasswordHasherFactory $encoderFactory,
+        private int $retryTtl
+    ) {
     }
 
     /**
@@ -57,8 +46,8 @@ class SecurityUtils
      */
     public function encodePassword(UserInterface $user): string
     {
-        $encoder = $this->encoderFactory->getEncoder($user);
-        return $encoder->encodePassword($user->getPlainPassword(), $user->getSalt());
+        $encoder = $this->encoderFactory->getPasswordHasher($user);
+        return $encoder->hash($user->getPlainPassword());
     }
 
     /**

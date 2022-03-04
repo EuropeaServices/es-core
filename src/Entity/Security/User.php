@@ -130,7 +130,7 @@ class User   implements UserInterface, \Serializable, AbstractEntityInterface, P
         return $this->username;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }

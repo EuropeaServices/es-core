@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ResettingControllerTest extends TestCase
 {
@@ -70,6 +71,11 @@ class ResettingControllerTest extends TestCase
      */
     private $formFactory;
 
+        /** 
+     * @var \PHPUnit_Framework_MockObject_MockObject 
+     */
+    private $eventDispatcherInterface;
+
     private $userClass = "Es\CoreBundle\Entity\Security\User";
 
     protected function setUp(): void
@@ -84,6 +90,9 @@ class ResettingControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->formFactory = $this->getMockBuilder(FormFactory::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->eventDispatcherInterface = $this->getMockBuilder(EventDispatcherInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->request = new Request();
@@ -105,7 +114,10 @@ class ResettingControllerTest extends TestCase
             $this->entityManager,
             $this->coreMailer,
             $this->formFactory,
-            $this->userClass
+            $this->eventDispatcherInterface,
+            $this->userClass,
+            5,
+            "*"
         );
         $this->controller->setContainer($this->container);
         $testedMethods = [

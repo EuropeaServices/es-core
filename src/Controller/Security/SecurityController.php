@@ -16,18 +16,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @var AuthenticationUtils
-     */
-    private $authenticationUtils;
-
-    /**
      * Constructor
      *
      * @param AuthenticationUtils $authenticationUtils
      */
-    public function __construct(AuthenticationUtils $authenticationUtils)
+    public function __construct(private AuthenticationUtils $authenticationUtils)
     {
-        $this->authenticationUtils = $authenticationUtils;
     }
 
     /**
@@ -52,7 +46,7 @@ class SecurityController extends AbstractController
      *
      * @return RedirectResponse
      */
-    public function logout()
+    public function logout(): RedirectResponse
     {
         return $this->redirectToRoute('es_core_login');
     }

@@ -46,7 +46,7 @@ class UserRepositoryTest extends TestCase
  */
 class UserRepositoryCustom extends UserRepository
 {
-    public function findOneBy(array $criteria, array $orderBy = null)
+    public function findOneBy(array $criteria, array $orderBy = null): ?object
     {
         return new User();
     }

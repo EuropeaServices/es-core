@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -66,7 +67,7 @@ class LoginFormAuthenticatorTest extends TestCase
     {
 
         $this->csrfTokenManager = $this->getMockBuilder(CsrfTokenManagerInterface::class)->getMock();
-        $this->passwordEncoder = $this->getMockBuilder(UserPasswordEncoderInterface::class)->getMock();
+        $this->passwordEncoder = $this->getMockBuilder(UserPasswordHasherInterface::class)->getMock();
         $this->urlGenerator = $this->getMockBuilder(UrlGeneratorInterface::class)->getMock();
         $this->entityManager = $this->getMockBuilder(EntityManagerInterface::class)->disableOriginalConstructor()->getMock();
         $this->repository = $this->getMockBuilder(EntityRepository::class)->disableOriginalConstructor()->getMock();

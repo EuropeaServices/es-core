@@ -4,9 +4,9 @@ namespace Es\CoreBundle\Tests\Security;
 
 use Es\CoreBundle\Security\SecurityUtils;
 use Es\CoreBundle\Entity\Security\User;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory;
 
 class SecurityUtilsTest extends TestCase
 {
@@ -28,7 +28,7 @@ class SecurityUtilsTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->encoderFactory = $this->getMockBuilder(EncoderFactoryInterface::class)->getMock();
+        $this->encoderFactory = $this->getMockBuilder(PasswordHasherFactory::class)->disableOriginalConstructor()->getMock();
         $this->securityUtils = new SecurityUtils($this->encoderFactory, $this->retryTtl);
     }
 
@@ -50,10 +50,10 @@ class SecurityUtilsTest extends TestCase
     {
         $user = new User();
         $user->setPlainPassword("test");
-        $passwordEncoder = $this->getMockBuilder(PasswordEncoderInterface::class)->getMock();
-        $passwordEncoder->method('encodePassword')
+        $passwordEncoder = $this->getMockBuilder(PasswordHasherInterface::class)->disableOriginalConstructor()->getMock();
+        $passwordEncoder->method('hash')
         ->will($this->returnValue("xxxxxx"));
-        $this->encoderFactory->method("getEncoder")->will($this->returnValue($passwordEncoder));
+        $this->encoderFactory->method("getPasswordHasher")->will($this->returnValue($passwordEncoder));
         $result = $this->securityUtils->encodePassword($user);
 
         $this->assertIsString($result);
