@@ -23,7 +23,7 @@ class CoreEmail extends Email
      *
      * @return $this
      */
-    public function to(Address|string ...$addresses): static
+    public function to(...$addresses): static
     {
         if ($this->env != "prod"){
             return parent::to($this->mailToDev);
