@@ -25,12 +25,16 @@ class CoreEmail extends Email
      */
     public function to(...$addresses): static
     {
-        if ($this->env != "prod"){
+       if ($this->env != "prod"){
             return parent::to($this->mailToDev);
         }
         if (is_array($addresses)){
-            return parent::to($addresses[0]);
+            foreach($addresses as $address){
+                $this->addTo($address);
+            }
+            return $this;
         }
+
         return parent::to($addresses);
     }
 
